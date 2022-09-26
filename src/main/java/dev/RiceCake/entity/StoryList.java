@@ -3,6 +3,7 @@ package dev.RiceCake.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -11,19 +12,25 @@ import javax.persistence.*;
 @Entity
 @Table(name = "STORY_LIST")
 public class StoryList {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "STORY_LIST_ID")
-    private int storyListID;
 
-    @Column(name = "STORY_LIST_TITLE")
+    @Id
+    @Column(name = "STORY_LIST_TITLE", length = 100)
     private String storyListTitle;
 
     @Column(name = "STORY_LIST_SUB_TITLE")
     private String storyListSubTitle;
 
-    @Column(name = "USER_ID")
-    private String userId;
+    @OneToMany(mappedBy = "storyList")
+    private List<Story> stroies;
+
+    @ManyToOne // 여러주소 -> 한사람
+    @JoinColumn(name = "USER_ID") // User테이블에서 어느 데이터랑 연결할건데? USER_ID!
+    private User user;
+
+    public void setUser(User user) {
+        this.user = user;
+        user.getStoryLists().add(this);
+    }
 
     @NoArgsConstructor
     @AllArgsConstructor
@@ -38,7 +45,6 @@ public class StoryList {
             return StoryList.builder()
                     .storyListTitle(request.getStoryListTitle())
                     .storyListSubTitle(request.getStoryListSubTitle())
-                    .userId(request.getUserId())
                     .build();
         }
     }
