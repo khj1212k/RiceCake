@@ -20,6 +20,10 @@ public class StoryList {
     @Column(name = "STORY_LIST_SUB_TITLE")
     private String storyListSubTitle;
 
+    @Column(name = "ORDER_NUMBER")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int OrderNumber;
+
     @OneToMany(mappedBy = "storyList")
     private List<Story> stroies;
 
