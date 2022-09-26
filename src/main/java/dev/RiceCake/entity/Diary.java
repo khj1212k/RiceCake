@@ -1,7 +1,6 @@
 package dev.RiceCake.entity;
 
 import lombok.*;
-import org.springframework.data.annotation.Id;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -14,17 +13,18 @@ import java.util.Date;
 @Getter
 @Setter
 @ToString
+@Table(name = "DIARY")
 public class Diary {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name ="DIARY_ID")
+    @Column(name = "DIARY_ID")
     private int diaryId;
 
     @Column(nullable = false)
     private String diaryTitle;
 
-    @Column(nullable = false)
+    @Column(nullable = false, length = 15000) // 5000 자
     private String diaryContents;
 
     @Column(nullable = false)
@@ -35,8 +35,13 @@ public class Diary {
     private Emotion emotion;
 
     @ManyToOne
-    @JoinColumn(name="USER_ID")
-    private int userId;
+    @JoinColumn(name = "USER_ID")
+    private User user;
+
+    public void setUser(User user) {
+        this.user = user;
+        user.getDiaries().add(this);
+    }
 
     @Getter @Setter
     @Builder

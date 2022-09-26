@@ -2,10 +2,7 @@ package dev.RiceCake.entity;
 
 import lombok.*;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.List;
 
 @NoArgsConstructor
@@ -28,8 +25,11 @@ public class User {
     @Column(name = "EMAIL", nullable = false)
     private String email; //이메일 유효성검사
 
-    @Column(name = "STORY_LISTS")
+    @OneToMany(mappedBy = "user")
     private List<StoryList> storyLists;
+
+    @OneToMany(mappedBy = "user")
+    private List<Diary> diaries;
 
     @NoArgsConstructor
     @AllArgsConstructor
