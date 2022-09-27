@@ -36,7 +36,7 @@ public class UserController {
         return ResponseEntity.status(status).body(response);
     }
 
-    //TODO 이메일 인증번호  --> 최고난도 각
+    //TODO 이메일 인증번호
 
     @PutMapping
     public ResponseEntity<User.Response> updateUser(@RequestBody User.Request request) {
