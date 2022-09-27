@@ -4,7 +4,9 @@ import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Builder
@@ -43,10 +45,16 @@ public class Diary {
         user.getDiaries().add(this);
     }
 
-    @Getter @Setter
+
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @Getter
+    @Setter
     @Builder
     @ToString
     public static class Request {
+        @NotBlank(message = "diaryId 공백('', ' ')이나 null 지정 불가")
+        private int diaryId;
         @NotBlank(message = "diaryTitle 공백('', ' ')이나 null 지정 불가")
         private String diaryTitle;
         @NotBlank(message = "diaryContents 공백('', ' ')이나 null 지정 불가")
@@ -55,41 +63,50 @@ public class Diary {
         private Date diaryDate;
         @NotBlank(message = "emotion 공백('', ' ')이나 null 지정 불가")
         private Emotion emotion;
-        private int userId;
+        private String userId;
 
-        public static Request toEntity(Diary diary) {
-            return Request.builder()
-                    .diaryTitle(diary.diaryTitle)
-                    .diaryContents(diary.diaryContents)
-                    .diaryDate(diary.diaryDate)
-                    .emotion(diary.emotion)
+        public static Diary toEntity(final Request request) {
+            return Diary.builder()
+                    .diaryId(request.getDiaryId())
+                    .diaryTitle(request.getDiaryTitle())
+                    .diaryContents(request.getDiaryContents())
+                    .diaryDate(request.getDiaryDate())
+                    .emotion(request.getEmotion())
                     .build();
 
         }
+    }
 
         @Builder
         @NoArgsConstructor
         @AllArgsConstructor
         @Getter
         @Setter
+        @ToString
         public static class Response {
+            private int diaryId;
             private String diaryTitle;
             private String diaryContents;
             private Date diaryDate;
             private Emotion emotion;
-            private int userId;
+            private String userId;
 
-            public static Response toResponse(Diary diary) {
-                return Response.builder()
-                        .diaryTitle(diary.diaryTitle)
-                        .diaryContents(diary.diaryContents)
-                        .diaryDate(diary.diaryDate)
-                        .emotion(diary.emotion)
+            public static Diary.Response toResponse(final Diary diary) {
+                return Diary.Response.builder()
+                        .diaryTitle(diary.getDiaryTitle())
+                        .diaryContents(diary.getDiaryContents())
+                        .diaryDate(diary.getDiaryDate())
+                        .emotion(diary.getEmotion())
                         .build();
             }
 
+            public static List<Diary.Response> toResponseList(final List<Diary> diaries) {
+                List<Diary.Response> list = new ArrayList<>();
+                for (Diary diary : diaries) {
+                    list.add(toResponse(diary));
+                }
+                return list;
+            }
+
         }
-
-
     }
-}
