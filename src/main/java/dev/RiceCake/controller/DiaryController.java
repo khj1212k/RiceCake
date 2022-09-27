@@ -1,8 +1,10 @@
 package dev.RiceCake.controller;
 
 import dev.RiceCake.entity.Diary;
+import dev.RiceCake.entity.User;
 import dev.RiceCake.repository.UserRepository;
 import dev.RiceCake.service.DiaryService;
+import dev.RiceCake.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,7 +21,7 @@ public class DiaryController {
     @Autowired
     private DiaryService diaryService;
     @Autowired
-    private UserRepository userRepository;
+    private UserService userService;
 
     @GetMapping
     public List<Diary.Response> getDiaries() {
@@ -40,15 +42,14 @@ public class DiaryController {
 
     //TODO 다이어리 추가
     @PostMapping
-    public ResponseEntity<Diary.Response> createDiary(@RequestBody @Valid Diary.Request request){
-        System.out.println(request);
+    public ResponseEntity<Diary.Response> createDiary(@RequestBody Diary.Request request){
+//        System.out.println(request);
         Diary diary = Diary.Request.toEntity(request);
-//        String userId = request.getUserId();
+        User user = userService.findUserById(request.getUser().getUserId());
 
+        diary.setUser(user);
         Diary savedDiary = diaryService.saveDiary(diary);
 
-//        diary.setUser(savedDiary.getUsers());
-//        userRepository.save(userId);
 
         Diary.Response response = Diary.Response.toResponse(savedDiary);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
@@ -60,7 +61,6 @@ public class DiaryController {
         List<Diary> diaries = diaryService.updateDiary(request);
         return Diary.Response.toResponseList(diaries);
     }
-
 
     //TODO 다이어리 삭제
     @DeleteMapping

@@ -9,7 +9,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter @Setter
-@Builder @ToString
+@Builder
 @Entity
 @Table(name = "USERS")
 public class User {
@@ -31,6 +31,16 @@ public class User {
 
     @OneToMany(mappedBy = "user")
     private List<Diary> diaries;
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "userId='" + userId + '\'' +
+                ", password='" + password + '\'' +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                '}';
+    }
 
     @NoArgsConstructor
     @AllArgsConstructor
@@ -63,6 +73,7 @@ public class User {
         private String name;
         private String email;
         private List<StoryList> storyLists;
+//        private List<Diary> diaries;
 
         public static User.Response toResponse(final User user) {
             return (user != null) ? Response.builder()
@@ -70,6 +81,7 @@ public class User {
                     .name(user.getName())
                     .email(user.getEmail())
                     .storyLists(user.getStoryLists())
+//                    .diaries(user.getDiaries())
                     .build() : null;
         }
 

@@ -17,7 +17,6 @@ public class Story {
     @Column(name = "STORY_ID")
     private int storyId;
 
-
     @Column(name = "STORY_TITLE", nullable = false)
     private String storyTitle;
 

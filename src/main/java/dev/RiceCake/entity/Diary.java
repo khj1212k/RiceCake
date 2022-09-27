@@ -14,7 +14,6 @@ import java.util.List;
 @AllArgsConstructor
 @Getter
 @Setter
-@ToString
 @Table(name = "DIARY")
 public class Diary {
 
@@ -45,6 +44,16 @@ public class Diary {
         user.getDiaries().add(this);
     }
 
+    @Override
+    public String toString() {
+        return "Diary{" +
+                "diaryId=" + diaryId +
+                ", diaryTitle='" + diaryTitle + '\'' +
+                ", diaryContents='" + diaryContents + '\'' +
+                ", diaryDate=" + diaryDate +
+                ", emotion=" + emotion +
+                '}';
+    }
 
     @NoArgsConstructor
     @AllArgsConstructor
@@ -63,7 +72,7 @@ public class Diary {
         private Date diaryDate;
         @NotBlank(message = "emotion 공백('', ' ')이나 null 지정 불가")
         private Emotion emotion;
-        private String userId;
+        private User user;
 
         public static Diary toEntity(final Request request) {
             return Diary.builder()
@@ -72,6 +81,7 @@ public class Diary {
                     .diaryContents(request.getDiaryContents())
                     .diaryDate(request.getDiaryDate())
                     .emotion(request.getEmotion())
+                    .user(request.getUser())
                     .build();
 
         }
@@ -89,14 +99,16 @@ public class Diary {
             private String diaryContents;
             private Date diaryDate;
             private Emotion emotion;
-            private String userId;
+            private User user;
 
             public static Diary.Response toResponse(final Diary diary) {
-                return Diary.Response.builder()
+                return Response.builder()
+                        .diaryId(diary.getDiaryId())
                         .diaryTitle(diary.getDiaryTitle())
                         .diaryContents(diary.getDiaryContents())
                         .diaryDate(diary.getDiaryDate())
                         .emotion(diary.getEmotion())
+                        .user(diary.getUser())
                         .build();
             }
 
