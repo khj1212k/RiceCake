@@ -55,7 +55,7 @@ public class Diary {
         private Date diaryDate;
         @NotBlank(message = "emotion 공백('', ' ')이나 null 지정 불가")
         private Emotion emotion;
-        private int userId;
+        private String userId;
 
         public static Request toEntity(Diary diary) {
             return Request.builder()
@@ -77,7 +77,7 @@ public class Diary {
             private String diaryContents;
             private Date diaryDate;
             private Emotion emotion;
-            private int userId;
+            private String userId;
 
             public static Response toResponse(Diary diary) {
                 return Response.builder()

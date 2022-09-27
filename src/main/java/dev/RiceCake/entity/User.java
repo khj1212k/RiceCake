@@ -4,12 +4,13 @@ import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.util.ArrayList;
 import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter @Setter
-@Builder @ToString
+@Builder
 @Entity
 @Table(name = "USERS")
 public class User {
@@ -32,6 +33,16 @@ public class User {
     @OneToMany(mappedBy = "user")
     private List<Diary> diaries;
 
+    @Override
+    public String toString() {
+        return "User{" +
+                "userId='" + userId + '\'' +
+                ", password='" + password + '\'' +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                '}';
+    }
+
     @NoArgsConstructor
     @AllArgsConstructor
     @Getter @Setter
@@ -43,6 +54,8 @@ public class User {
         private String password;
         private String name;
         private String email;
+        private Diary diary;
+        private StoryList storyList;
 
         public static User toEntity(final Request request) {
             return User.builder()
@@ -50,6 +63,8 @@ public class User {
                     .password(request.getPassword())
                     .name(request.getName())
                     .email(request.getEmail())
+                    .storyLists(new ArrayList<>())
+                    .diaries(new ArrayList<>())
                     .build();
         }
     }
