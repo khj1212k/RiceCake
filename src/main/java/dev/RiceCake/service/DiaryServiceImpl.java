@@ -6,6 +6,7 @@ import dev.RiceCake.repository.DiaryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,8 +22,9 @@ public class DiaryServiceImpl implements DiaryService{
 	}
 
     @Override
-    public Diary findDiaryById(int diaryId) {
-        return diaryRepository.findById(diaryId);
+    public Diary findDiaryByDate(Date diaryDate) {
+
+        return diaryRepository.findByDiaryDate(diaryDate);
     }
 
     @Override
@@ -32,7 +34,7 @@ public class DiaryServiceImpl implements DiaryService{
 
     @Override
     public List<Diary> updateDiary(Diary.Request request) {
-        final Optional<Diary> diary = Optional.ofNullable(diaryRepository.findById(request.getDiaryId()));
+        final Optional<Diary> diary = Optional.ofNullable(findDiaryByDate(request.getDiaryDate()));
 
         if (diary.isPresent()){
             final Diary foundDiary = diary.get();

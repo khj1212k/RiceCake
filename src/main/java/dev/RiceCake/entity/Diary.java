@@ -99,7 +99,7 @@ public class Diary {
             private String diaryContents;
             private Date diaryDate;
             private Emotion emotion;
-            private User user;
+            private String user;
 
             public static Diary.Response toResponse(final Diary diary) {
                 return Response.builder()
@@ -108,7 +108,7 @@ public class Diary {
                         .diaryContents(diary.getDiaryContents())
                         .diaryDate(diary.getDiaryDate())
                         .emotion(diary.getEmotion())
-                        .user(diary.getUser())
+                        .user(diary.getUser().getUserId())
                         .build();
             }
 

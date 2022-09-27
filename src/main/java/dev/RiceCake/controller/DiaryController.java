@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -27,14 +28,13 @@ public class DiaryController {
     public List<Diary.Response> getDiaries() {
 
         List<Diary> diaries = diaryService.findAllDiaries();
-
         return Diary.Response.toResponseList(diaries);
     }
 
     //TODO 유저정보와 다이어리이름에 맞는 다이어리 제목 및 내용 및 감정 반환
     @GetMapping("{diaryId}")
-    public Diary.Response getDiary(@PathVariable int diaryId) {
-        Diary foundDiary = diaryService.findDiaryById(diaryId);
+    public Diary.Response getDiary(@PathVariable Date diaryDate) {
+        Diary foundDiary = diaryService.findDiaryByDate(diaryDate);
 		return Diary.Response.toResponse(foundDiary);
     }
 
@@ -43,15 +43,14 @@ public class DiaryController {
     //TODO 다이어리 추가
     @PostMapping
     public ResponseEntity<Diary.Response> createDiary(@RequestBody Diary.Request request){
-//        System.out.println(request);
+        System.out.println(request);
         Diary diary = Diary.Request.toEntity(request);
-        User user = userService.findUserById(request.getUser().getUserId());
-
-        diary.setUser(user);
+        diary.setUser(userService.findUserById(request.getUser().getUserId()));
         Diary savedDiary = diaryService.saveDiary(diary);
-
+        System.out.println(diary);
 
         Diary.Response response = Diary.Response.toResponse(savedDiary);
+        System.out.println(response);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 

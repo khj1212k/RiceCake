@@ -28,7 +28,7 @@ public class UserController {
     @PostMapping // 'POST' http://localhost:8090/users 요청시 호출되는 메서드(핸들러)
     public ResponseEntity<User.Response> createUser(@RequestBody @Valid User.Request request) {
         User user = User.Request.toEntity(request);
-
+        System.out.println(user);
         User savedUser = userService.createUser(user);
 
         User.Response response = User.Response.toResponse(savedUser);

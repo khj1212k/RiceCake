@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.util.ArrayList;
 import java.util.List;
 
 @NoArgsConstructor
@@ -60,6 +61,8 @@ public class User {
                     .password(request.getPassword())
                     .name(request.getName())
                     .email(request.getEmail())
+                    .diaries(new ArrayList<>())
+                    .storyLists(new ArrayList<>())
                     .build();
         }
     }
@@ -73,6 +76,7 @@ public class User {
         private String name;
         private String email;
         private List<StoryList> storyLists;
+        private List<Diary> diaries;
 //        private List<Diary> diaries;
 
         public static User.Response toResponse(final User user) {
@@ -81,7 +85,7 @@ public class User {
                     .name(user.getName())
                     .email(user.getEmail())
                     .storyLists(user.getStoryLists())
-//                    .diaries(user.getDiaries())
+                    .diaries(user.getDiaries())
                     .build() : null;
         }
 
