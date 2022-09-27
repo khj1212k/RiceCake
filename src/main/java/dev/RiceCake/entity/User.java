@@ -3,6 +3,7 @@ package dev.RiceCake.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.util.List;
 
 @NoArgsConstructor
@@ -36,7 +37,9 @@ public class User {
     @Getter @Setter
     @Builder @ToString
     public static class Request {
+        @NotBlank(message = "userId 공백('', ' ')이나 null 지정 불가")
         private String userId;
+        @NotBlank(message = "password 공백('', ' ')이나 null 지정 불가")
         private String password;
         private String name;
         private String email;
@@ -62,12 +65,12 @@ public class User {
         private List<StoryList> storyLists;
 
         public static User.Response toResponse(final User user) {
-            return Response.builder()
+            return (user != null) ? Response.builder()
                     .userId(user.getUserId())
                     .name(user.getName())
                     .email(user.getEmail())
                     .storyLists(user.getStoryLists())
-                    .build();
+                    .build() : null;
         }
 
     }
