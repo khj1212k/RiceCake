@@ -79,7 +79,6 @@ public class User {
         private String email;
         private List<StoryList> storyLists;
         private List<Diary> diaries;
-//        private List<Diary> diaries;
 
         public static User.Response toResponse(final User user) {
             return (user != null) ? Response.builder()

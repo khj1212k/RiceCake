@@ -16,15 +16,10 @@ public class DiaryServiceImpl implements DiaryService{
     @Autowired
     private DiaryRepository diaryRepository;
 
-    @Override
-    public List<Diary> findAllDiaries() {
-        return diaryRepository.findAll();
-	}
 
     @Override
-    public Diary findDiaryByDate(Date diaryDate) {
-
-        return diaryRepository.findByDiaryDate(diaryDate);
+    public Diary findDiaryByDate(Date diaryDate, String userId) {
+        return diaryRepository.findByDiaryDateAndUserUserId(diaryDate, userId);
     }
 
     @Override
@@ -34,7 +29,7 @@ public class DiaryServiceImpl implements DiaryService{
 
     @Override
     public List<Diary> updateDiary(Diary.Request request) {
-        final Optional<Diary> diary = Optional.ofNullable(findDiaryByDate(request.getDiaryDate()));
+        final Optional<Diary> diary = diaryRepository.findById(request.getDiaryId());
 
         if (diary.isPresent()){
             final Diary foundDiary = diary.get();

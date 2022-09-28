@@ -8,5 +8,5 @@ import java.util.Date;
 
 @Repository
 public interface DiaryRepository extends JpaRepository<Diary,Integer> {
-    Diary findByDiaryDate(Date diaryDate);
+    Diary findByDiaryDateAndUserUserId (Date diaryDate, String userId);
 }

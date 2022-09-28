@@ -38,7 +38,6 @@ public class StoryListServiceImpl implements StoryListService{
             storyRepository.deleteById(story.getStoryId());
         }
         storyListRepository.deleteById(id);
-
     }
 
 
