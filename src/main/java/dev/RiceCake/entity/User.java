@@ -54,6 +54,8 @@ public class User {
         private String password;
         private String name;
         private String email;
+        private Diary diary;
+        private StoryList storyList;
 
         public static User toEntity(final Request request) {
             return User.builder()

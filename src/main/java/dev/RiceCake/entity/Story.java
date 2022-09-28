@@ -3,7 +3,9 @@ package dev.RiceCake.entity;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 @Builder @ToString
@@ -26,14 +28,9 @@ public class Story {
     @Column(name = "STORY_DATE", nullable = false)
     private Date storyDate;
 
-    @ManyToOne // 여러주소 -> 한사람
-    @JoinColumn(name = "STORY_LIST_TITLE")
+    @ManyToOne // 여러스토리 -> 한 스토리리스트
+    @JoinColumn(name = "STORY_LIST_ID")
     private StoryList storyList;
-
-    @ManyToOne // 여러스토리-> 한스토리리스트
-    @JoinColumn(name = "USER_ID") // User테이블에서 어느 데이터랑 연결할건데? USER_ID!
-    private User user;
-
 
 
     public void setStoryList(StoryList storyList) {
@@ -49,17 +46,19 @@ public class Story {
     @Builder
     @ToString
     public static class Request {
+        private int storyId;
         private String storyTitle;
         private String storyContents;
         private Date storyDate;
-        private int storyListId;
-        private String userId;
+        private StoryList storyList;
 
         public static Story toEntity(final Request request) {
             return Story.builder()
+                    .storyId(request.getStoryId())
                     .storyTitle(request.getStoryTitle())
                     .storyContents(request.getStoryContents())
                     .storyDate(request.getStoryDate())
+                    .storyList(request.getStoryList())
                     .build();
         }
     }
@@ -71,16 +70,26 @@ public class Story {
     @Builder
     @ToString
     public static class Response {
+        private int storyId;
         private String storyTitle;
         private String storyContents;
         private Date storyDate;
 
         public static Story.Response toResponse(final Story story) {
             return Response.builder()
+                    .storyId(story.getStoryId())
                     .storyTitle(story.getStoryTitle())
                     .storyContents(story.getStoryContents())
                     .storyDate(story.getStoryDate())
                     .build();
+        }
+
+        public static List<Story.Response> toResponseList(final List<Story> storys) {
+            List<Story.Response> list = new ArrayList<>();
+            for (Story story : storys) {
+                list.add(toResponse(story));
+            }
+            return list;
         }
     }
 }
