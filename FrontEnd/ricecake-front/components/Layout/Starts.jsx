@@ -2,7 +2,8 @@ import { StarIcon } from '@heroicons/react/24/outline'
 
 export default function Example() {
   return (
-    <div className="flex h-full bg-white py-12">
+    <div className="fixed flex bg-white py-12">
+      start
       <div className="flex items-center justify-center mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 ">
         <div className="text-center">
           <p className="md-h-auto mt-2 text-3xl p-24 animate-pulse font-bold leading-8 text-gray-900 sm:text-7xl">

@@ -1,6 +1,6 @@
 export default function Example() {
     return (
-<footer class=" bg-white dark:bg-gray-800 flex-end border-2">
+<footer className="fixed bottom-0 left-0 bg-white dark:bg-gray-800 flex-end border-2">
     <div class="max-w-screen-xl mx-auto px-4">
         <ul class="max-w-screen-md mx-auto text-lg font-light flex flex-wrap  justify-between">
             <li class="my-2">
