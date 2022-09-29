@@ -1,14 +1,18 @@
-import Head from 'next/head'
-import Image from 'next/image'
 import styles from '../styles/Home.module.css'
-import Starts from '../components/Layout/Starts'
 import Header from '../components/Layout/Header'
+import Starts from '../components/Layout/Starts'
+import Main from '../components/Layout/Main'
+import SotryList from '../components/StoryMode/SotryList'
+import Footer from '../components/Layout/Footer'
 
 export default function Home() {
   return (
-    <div className={styles.container}>
-      <Header/>
-      <Starts/>
-    </div>
+    <>
+      <div className="border-2 border-blue-700 h-full flex-col justify-between">
+          {/* <Header /> */}
+          <Starts />
+          {/* <Footer /> */}
+      </div>
+    </>
   )
 }
