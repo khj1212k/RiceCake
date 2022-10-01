@@ -1,117 +1,251 @@
-import React from "react";
+import React, { Fragment, useRef, useState } from "react";
 import Link from "next/link";
 import Header from "../../components/Layout/Header";
+import { Dialog, Transition } from "@headlessui/react";
+import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
 
 const DiaryDetail = () => {
+  const [open, setOpen] = useState(false);
+
+  const clickHandler = () => {
+    setOpen(true);
+  };
+  const cancelButtonRef = useRef(null);
+
+  function checkOnlyOne(element) {
+    const checkboxes = document.getElementsByName("checkbox");
+
+    checkboxes.forEach((cb) => {
+      cb.checked = false;
+    });
+
+    element.checked = true;
+  }
+
   return (
     <>
-      <Header />
-      <div class="min-h-full h-3/4 items-center justify-center py-12 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
+      <div className="items-center justify-center min-h-full px-4 py-12 mx-auto h-3/4 sm:px-6 lg:px-8 max-w-7xl">
         {/* <div class="flex space-x-2 justify-start px-6 ">DiaryMain</div> */}
-        <div class="flex space-x-2 justify-end px-6 ">
+        <div className="flex justify-end px-6 space-x-2 ">
           <Link href="/Diary/DiaryMain">
-            <a class="inline-block px-6 py-2.5 bg-black text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-gray-700 hover:shadow-lg focus:bg-gray-600 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-800 active:shadow-lg transition duration-150 ease-in-out">
+            <a className="inline-block px-6 py-2.5 bg-black text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-gray-800 hover:shadow-lg focus:bg-gray-600 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-800 active:shadow-lg transition duration-150 ease-in-out">
               BACK
             </a>
           </Link>
-          <Link href="/Diary/DiaryMain">
-            <a class="inline-block px-6 py-2.5 bg-black text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-gray-700 hover:shadow-lg focus:bg-gray-600 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-800 active:shadow-lg transition duration-150 ease-in-out">
+          {/* <Link href="/Diary/DiaryMain">
+            <a className="inline-block px-6 py-2.5 bg-black text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-gray-700 hover:shadow-lg focus:bg-gray-600 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-800 active:shadow-lg transition duration-150 ease-in-out">
               CHANGE
             </a>
-          </Link>
+          </Link> */}
+          <button
+            className="inline-block px-6 py-2.5 bg-black text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-gray-800 hover:shadow-lg focus:bg-gray-600 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-800 active:shadow-lg transition duration-150 ease-in-out"
+            type="button"
+            data-modal-toggle="popup-modal"
+            onClick={clickHandler}
+          >
+            CHANGE
+          </button>
         </div>
 
-        <div class="flex justify-center">
+        <div className="flex justify-center">
           <textarea
             placeholder="Title"
-            class=" text-gray-900 w-96 resize-none overflow-hidden row-span-6 text-center text-4xl outline-none pt-10"
+            className="row-span-6 pt-10 overflow-hidden text-4xl text-center text-gray-900 outline-none resize-none w-96"
           />
         </div>
-        <div class="mb-7 h-px bg-gray-400 w-1/2 mx-auto"></div>
-        <div class="flex justify-center">
+        <div className="w-1/2 h-px mx-auto bg-gray-400 mb-7"></div>
+        <div className="flex justify-center">
           <textarea
             placeholder="내용을 입력하세요."
             rows="12"
+            outline="none"
             // class="text-gray-900 resize-none overflow-hidden text-lg outline-none py-3/4 w-96"
             // class="overflow-hidden lg:overflow-auto scrollbar:!w-1.5 scrollbar:!h-1.5 scrollbar:bg-transparent scrollbar-track:!bg-slate-100
             // scrollbar-thumb:!rounded scrollbar-thumb:!bg-slate-300 scrollbar-track:!rounded dark:scrollbar-track:!bg-slate-500/[0.16]
             // dark:scrollbar-thumb:!bg-slate-500/50 max-h-96 supports-scrollbars:pr-2 lg:max-h-96"
-            class="block p-2.5 w-1/2 text-sm text-gray-900 rounded-lg "
+            className="block p-2.5 w-1/2 text-sm text-gray-900 rounded-lg "
           />
         </div>
 
-        <button
-          class="block text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-          type="button"
-          data-modal-toggle="popup-modal"
-        >
-          Toggle modal
-        </button>
-
-        <div
-          id="popup-modal"
-          tabIndex="-1"
-          class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 md:inset-0 h-modal md:h-full"
-        >
-          <div class="relative p-4 w-full max-w-md h-full md:h-auto jus">
-            <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-              <button
-                type="button"
-                class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white"
-                data-modal-toggle="popup-modal"
-              >
-                <svg
-                  aria-hidden="true"
-                  class="w-5 h-5"
-                  fill="currentColor"
-                  viewBox="0 0 20 20"
-                  xmlns="http://www.w3.org/2000/svg"
+        <Transition.Root show={open} as={Fragment}>
+          <Dialog
+            as="div"
+            className="relative z-10"
+            // initialFocus={cancelButtonRef}
+            onClose={setOpen}
+          >
+            // 뒤에 흐린 배경
+            <Transition.Child
+              as={Fragment}
+              enter="ease-out duration-300"
+              enterFrom="opacity-0" // opacity = 불투명
+              enterTo="opacity-100" // opacity = 불투명
+              leave="ease-in duration-200"
+              leaveFrom="opacity-100"
+              leaveTo="opacity-0"
+            >
+              <div className="fixed inset-0 transition-opacity bg-gray-500 bg-opacity-75" />
+            </Transition.Child>
+            <div className="fixed inset-0 z-10 overflow-y-auto">
+              <div className="flex items-end justify-center min-h-full p-4 text-center sm:items-center sm:p-0">
+                <Transition.Child
+                  as={Fragment}
+                  enter="ease-out duration-300"
+                  enterFrom="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
+                  enterTo="opacity-100 translate-y-0 sm:scale-100"
+                  leave="ease-in duration-200"
+                  leaveFrom="opacity-100 translate-y-0 sm:scale-100"
+                  leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
                 >
-                  <path
-                    fillRule="evenodd"
-                    d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                    clipRule="evenodd"
-                  ></path>
-                </svg>
-                <span class="sr-only">Close modal</span>
-              </button>
-              <div class="p-6 text-center">
-                <svg
-                  aria-hidden="true"
-                  class="mx-auto mb-4 w-14 h-14 text-gray-400 dark:text-gray-200"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                  ></path>
-                </svg>
-                <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">
-                  Are you sure you want to delete this product?
-                </h3>
-                <button
-                  data-modal-toggle="popup-modal"
-                  type="button"
-                  class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center mr-2"
-                >
-                  Yes, I'm sure
-                </button>
-                <button
-                  data-modal-toggle="popup-modal"
-                  type="button"
-                  class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600"
-                >
-                  No, cancel
-                </button>
+                  <Dialog.Panel className="relative overflow-hidden text-left transition-all transform bg-white rounded-lg shadow-xl sm:my-8 sm:w-full sm:max-w-lg">
+                    <div className="flex justify-center px-4 pt-5 pb-4 bg-white sm:p-6 sm:pb-4">
+                      <div className="sm:flex sm:items-start">
+                        {
+                          // 빨간 경고 그림
+                          /* <div className="flex items-center justify-center flex-shrink-0 w-12 h-12 mx-auto bg-red-100 rounded-full sm:mx-0 sm:h-10 sm:w-10">
+                          <ExclamationTriangleIcon
+                            className="w-6 h-6 text-red-600"
+                            aria-hidden="true"
+                          />
+                        </div> */
+                        }
+                        <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+                          <Dialog.Title
+                            as="h3"
+                            className="text-lg font-medium leading-6 text-gray-900"
+                          >
+                            Today's Mood
+                          </Dialog.Title>
+                          <div className="flex mt-2">
+                            <div class="flex items-center mr-4">
+                              <input
+                                checked
+                                id="red-checkbox"
+                                type="checkbox"
+                                name="checkbox"
+                                value=""
+                                class="w-4 h-4 accent-red-600 bg-gray-100 rounded border-gray-300 "
+                                onclick={checkOnlyOne(this)}
+                              />
+                              <label
+                                for="red-checkbox"
+                                class="ml-2 text-sm font-medium text-gray-900"
+                              >
+                                Red
+                              </label>
+                            </div>
+                            <div class="flex items-center mr-4">
+                              <input
+                                // checked=""
+                                id="green-checkbox"
+                                type="checkbox"
+                                name="checkbox"
+                                value=""
+                                class="w-4 h-4 accent-green-600 bg-gray-100 rounded border-gray-300"
+                                onclick={checkOnlyOne(this)}
+                              />
+                              <label
+                                for="green-checkbox"
+                                class="ml-2 text-sm font-medium text-gray-900 "
+                              >
+                                Green
+                              </label>
+                            </div>
+                            <div class="flex items-center mr-4">
+                              <input
+                                // checked=""
+                                id="purple-checkbox"
+                                type="checkbox"
+                                name="checkbox"
+                                value=""
+                                class="w-4 h-4 accent-purple-600 bg-gray-100 rounded border-gray-300"
+                                onclick={checkOnlyOne(this)}
+                              />
+                              <label
+                                for="purple-checkbox"
+                                class="ml-2 text-sm font-medium text-gray-900 "
+                              >
+                                Purple
+                              </label>
+                            </div>
+                            <div class="flex items-center mr-4">
+                              <input
+                                // checked=""
+                                id="teal-checkbox"
+                                type="checkbox"
+                                name="checkbox"
+                                value=""
+                                class="w-4 h-4 accent-teal-600 bg-gray-100 rounded border-gray-300"
+                                onclick={checkOnlyOne(this)}
+                              />
+                              <label
+                                for="teal-checkbox"
+                                class="ml-2 text-sm font-medium text-gray-900 "
+                              >
+                                Teal
+                              </label>
+                            </div>
+                            <div class="flex items-center mr-4">
+                              <input
+                                // checked=""
+                                id="yellow-checkbox"
+                                type="checkbox"
+                                name="checkbox"
+                                value=""
+                                class="w-4 h-4 accent-yellow-400 bg-gray-100 rounded border-gray-300 "
+                                onclick={checkOnlyOne(this)}
+                              />
+                              <label
+                                for="yellow-checkbox"
+                                class="ml-2 text-sm font-medium text-gray-900 "
+                              >
+                                Yellow
+                              </label>
+                            </div>
+                            <div class="flex items-center mr-4">
+                              <input
+                                // checked=""
+                                id="orange-checkbox"
+                                type="checkbox"
+                                name="checkbox"
+                                value=""
+                                class="w-4 h-4 accent-orange-500 bg-gray-100 rounded border-gray-300 "
+                                onclick={checkOnlyOne(this)}
+                              />
+                              <label
+                                for="orange-checkbox"
+                                class="ml-2 text-sm font-medium text-gray-900 "
+                              >
+                                Orange
+                              </label>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="px-4 py-3 bg-gray-50 sm:flex sm:flex-row-reverse sm:px-6">
+                      <button
+                        type="button"
+                        className="inline-flex justify-center w-full px-4 py-2 text-base font-medium text-white bg-black border border-transparent rounded-md shadow-sm hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 sm:ml-3 sm:w-auto sm:text-sm"
+                        onClick={() => setOpen(false)}
+                      >
+                        Submit
+                      </button>
+                      <button
+                        type="button"
+                        className="inline-flex justify-center w-full px-4 py-2 mt-3 text-base font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
+                        onClick={() => setOpen(false)}
+                        ref={cancelButtonRef}
+                      >
+                        Cancel
+                      </button>
+                    </div>
+                  </Dialog.Panel>
+                </Transition.Child>
               </div>
             </div>
-          </div>
-        </div>
+          </Dialog>
+        </Transition.Root>
       </div>
     </>
   );
