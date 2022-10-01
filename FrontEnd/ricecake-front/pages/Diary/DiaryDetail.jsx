@@ -1,8 +1,6 @@
 import React, { Fragment, useRef, useState } from "react";
 import Link from "next/link";
-import Header from "../../components/Layout/Header";
 import { Dialog, Transition } from "@headlessui/react";
-import { ExclamationTriangleIcon } from "@heroicons/react/24/outline";
 
 const DiaryDetail = () => {
   const [open, setOpen] = useState(false);
@@ -12,15 +10,24 @@ const DiaryDetail = () => {
   };
   const cancelButtonRef = useRef(null);
 
-  function checkOnlyOne(element) {
-    const checkboxes = document.getElementsByName("checkbox");
+  const clickCheck = (element) => {
+    console.log(element);
+    if (typeof document !== "undefined") {
+      const checkboxes = document.getElementsByName("checkbox");
+      checkboxes.forEach((cb) => {
+        cb.checked = false;
+        console.log(cb);
+      });
+      const target = document.getElementById(element);
+      // target.checked = true;
+      console.log(target);
+    }
+    // document
+    //   .querySelectorAll(`input[type=checkbox]`)
+    //   .forEach((el) => (el.checked = false));
 
-    checkboxes.forEach((cb) => {
-      cb.checked = false;
-    });
-
-    element.checked = true;
-  }
+    // target = true;
+  };
 
   return (
     <>
@@ -119,16 +126,16 @@ const DiaryDetail = () => {
                           <div className="flex mt-2">
                             <div class="flex items-center mr-4">
                               <input
-                                checked
+                                // checked
                                 id="red-checkbox"
                                 type="checkbox"
                                 name="checkbox"
                                 value=""
                                 class="w-4 h-4 accent-red-600 bg-gray-100 rounded border-gray-300 "
-                                onclick={checkOnlyOne(this)}
+                                onClick={clickCheck("red-checkbox")}
                               />
                               <label
-                                for="red-checkbox"
+                                // for="red-checkbox"
                                 class="ml-2 text-sm font-medium text-gray-900"
                               >
                                 Red
@@ -142,10 +149,10 @@ const DiaryDetail = () => {
                                 name="checkbox"
                                 value=""
                                 class="w-4 h-4 accent-green-600 bg-gray-100 rounded border-gray-300"
-                                onclick={checkOnlyOne(this)}
+                                onClick={clickCheck("green-checkbox")}
                               />
                               <label
-                                for="green-checkbox"
+                                // for="green-checkbox"
                                 class="ml-2 text-sm font-medium text-gray-900 "
                               >
                                 Green
@@ -159,10 +166,10 @@ const DiaryDetail = () => {
                                 name="checkbox"
                                 value=""
                                 class="w-4 h-4 accent-purple-600 bg-gray-100 rounded border-gray-300"
-                                onclick={checkOnlyOne(this)}
+                                onClick={clickCheck("purple-checkbox")}
                               />
                               <label
-                                for="purple-checkbox"
+                                // for="purple-checkbox"
                                 class="ml-2 text-sm font-medium text-gray-900 "
                               >
                                 Purple
@@ -176,10 +183,10 @@ const DiaryDetail = () => {
                                 name="checkbox"
                                 value=""
                                 class="w-4 h-4 accent-teal-600 bg-gray-100 rounded border-gray-300"
-                                onclick={checkOnlyOne(this)}
+                                onClick={clickCheck("teal-checkbox")}
                               />
                               <label
-                                for="teal-checkbox"
+                                // for="teal-checkbox"
                                 class="ml-2 text-sm font-medium text-gray-900 "
                               >
                                 Teal
@@ -193,10 +200,10 @@ const DiaryDetail = () => {
                                 name="checkbox"
                                 value=""
                                 class="w-4 h-4 accent-yellow-400 bg-gray-100 rounded border-gray-300 "
-                                onclick={checkOnlyOne(this)}
+                                onClick={clickCheck("yellow-checkbox")}
                               />
                               <label
-                                for="yellow-checkbox"
+                                // for="yellow-checkbox"
                                 class="ml-2 text-sm font-medium text-gray-900 "
                               >
                                 Yellow
@@ -210,10 +217,10 @@ const DiaryDetail = () => {
                                 name="checkbox"
                                 value=""
                                 class="w-4 h-4 accent-orange-500 bg-gray-100 rounded border-gray-300 "
-                                onclick={checkOnlyOne(this)}
+                                onClick={clickCheck("orange-checkbox")}
                               />
                               <label
-                                for="orange-checkbox"
+                                // for="orange-checkbox"
                                 class="ml-2 text-sm font-medium text-gray-900 "
                               >
                                 Orange
