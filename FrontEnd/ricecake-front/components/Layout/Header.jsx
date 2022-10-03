@@ -1,9 +1,7 @@
 import { Fragment } from 'react'
 import { Menu, Transition } from '@headlessui/react'
 import { Bars3Icon, StarIcon, ArrowRightOnRectangleIcon, } from '@heroicons/react/24/outline'
-
-
-
+import Link from 'next/link'
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
@@ -16,20 +14,20 @@ export default function Example() {
         <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
         </div>
         <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
-          <div className="flex flex-shrink-0 items-center">
-            RiceCake
-            <StarIcon
-              className="block h-5 pl-1 w-auto lg:hidden"
-            />
-            <StarIcon
-              className="hidden h-5 pl-1 w-auto lg:block"
-            />
-          </div>
+          <Link href="/Main/Main">
+            <a className="flex flex-shrink-0 items-center ">
+              RiceCake
+              <StarIcon
+                className="block h-5 w-auto px-1 lg:hidden"
+              />
+            </a>
+          </Link>
           <div className="hidden sm:ml-6 sm:block">
             <div className="flex space-x-4">
             </div>
           </div>
         </div>
+        
         <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
           <button href="/auth/sign-out"
             type="button"
@@ -65,27 +63,27 @@ export default function Example() {
                       href="#"
                       className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
                     >
-                      Your Profile
+                      Light/Dark
                     </a>
                   )}
                 </Menu.Item>
                 <Menu.Item>
                   {({ active }) => (
                     <a
-                      href="#"
+                      href="/Story/StoryMain"
                       className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
                     >
-                      Settings
+                      Your Stories
                     </a>
                   )}
                 </Menu.Item>
                 <Menu.Item>
                   {({ active }) => (
                     <a
-                      href="#"
+                      href="/Diary/DiaryMain"
                       className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
                     >
-                      Sign out
+                      Your Diaries
                     </a>
                   )}
                 </Menu.Item>

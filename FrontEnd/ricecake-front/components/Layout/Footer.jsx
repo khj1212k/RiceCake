@@ -1,6 +1,6 @@
 export default function Example() {
     return (
-<footer className="fixed bottom-0 left-0 bg-white dark:bg-gray-800 flex-end border-2">
+<footer className="bottom-0 left-0 bg-white dark:bg-gray-800 flex-end border-2">
     <div class="max-w-screen-xl mx-auto px-4">
         <ul class="max-w-screen-md mx-auto text-lg font-light flex flex-wrap  justify-between">
             <li class="my-2">
@@ -14,7 +14,7 @@ export default function Example() {
                 </a>
             </li>
             <li class="my-2">
-                <a class="text-gray-400 hover:text-gray-800 dark:text-gray-300 dark:hover:text-white transition-colors duration-200" href="#">
+                <a class="text-gray-400 hover:text-gray-800 dark:text-gray-300 dark:hover:text-white transition-colors duration-200" href="https://github.com/khj1212k/RiceCake">
                     Github
                 </a>
             </li>
@@ -25,7 +25,7 @@ export default function Example() {
             </li>
         </ul>
         <div class="text-center text-gray-500 dark:text-gray-200 font-light flex items-center justify-center">
-            Created by Charlie
+            Created by 7th-class
         </div>
     </div>
 </footer>

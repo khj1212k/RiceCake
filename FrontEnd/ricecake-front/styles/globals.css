@@ -11,9 +11,9 @@ body {
   height: 753px;
 }
 
-/* #__next {
+#__next {
   height: 100%;
-} */
+}
 
 a {
   color: inherit;
