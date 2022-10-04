@@ -30,11 +30,7 @@ const StorySubText = () => {
           placeholder="내용을 입력하세요."
           rows="12"
           outline="none"
-          // class="text-gray-900 resize-none overflow-hidden text-lg outline-none py-3/4 w-96"
-          // class="overflow-hidden lg:overflow-auto scrollbar:!w-1.5 scrollbar:!h-1.5 scrollbar:bg-transparent scrollbar-track:!bg-slate-100
-          // scrollbar-thumb:!rounded scrollbar-thumb:!bg-slate-300 scrollbar-track:!rounded dark:scrollbar-track:!bg-slate-500/[0.16]
-          // dark:scrollbar-thumb:!bg-slate-500/50 max-h-96 supports-scrollbars:pr-2 lg:max-h-96"
-          className="block p-2.5 w-1/2 text-sm text-gray-900 rounded-lg resize-none"
+          className="scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-gray-300 h-auto scrollbar-thumb-rounded-full scrollbar-track-rounded-full overflow-y-scroll block p-2.5 w-1/2 text-sm text-gray-900 rounded-lg resize-none"
         />
       </div>
     </div>

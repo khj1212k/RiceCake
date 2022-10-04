@@ -87,7 +87,7 @@ const StoryMain = () => {
                                                             placeholder="내용을 입력하세요."
                                                             rows="2"
                                                             outline="none"
-                                                            className="block p-2.5 text-sm text-gray-900 rounded-lg resize-none"
+                                                            className="scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-gray-300 h-auto scrollbar-thumb-rounded-full scrollbar-track-rounded-full overflow-y-scroll block p-2.5 text-sm text-gray-900 rounded-lg resize-none"
                                                         />
                                                     </div>
                                                 </div>
@@ -105,7 +105,7 @@ const StoryMain = () => {
                                                             placeholder="내용을 입력하세요."
                                                             rows="2"
                                                             outline="none"
-                                                            className="block p-2.5 text-sm text-gray-900 rounded-lg resize-none"
+                                                            className="scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-gray-300 h-auto scrollbar-thumb-rounded-full scrollbar-track-rounded-full overflow-y-scroll block p-2.5 text-sm text-gray-900 rounded-lg resize-none"
                                                         />
                                                     </div>
                                                 </div>

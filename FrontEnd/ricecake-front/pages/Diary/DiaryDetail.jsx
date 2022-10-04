@@ -10,25 +10,6 @@ const DiaryDetail = () => {
   };
   const cancelButtonRef = useRef(null);
 
-  const clickCheck = (element) => {
-    console.log(element);
-    if (typeof document !== "undefined") {
-      const checkboxes = document.getElementsByName("checkbox");
-      checkboxes.forEach((cb) => {
-        cb.checked = false;
-        console.log(cb);
-      });
-      const target = document.getElementById(element);
-      // target.checked = true;
-      console.log(target);
-    }
-    // document
-    //   .querySelectorAll(`input[type=checkbox]`)
-    //   .forEach((el) => (el.checked = false));
-
-    // target = true;
-  };
-
   return (
     <>
       <div className="items-center justify-center min-h-full px-4 py-12 mx-auto h-3/4 sm:px-6 lg:px-8 max-w-7xl">
@@ -57,7 +38,7 @@ const DiaryDetail = () => {
         <div className="flex justify-center">
           <textarea
             placeholder="Title"
-            className="row-span-6 pt-10 overflow-hidden text-4xl text-center text-gray-900 outline-none resize-none w-96"
+            className=" row-span-6 pt-10 overflow-hidden text-4xl text-center text-gray-900 outline-none resize-none w-96"
           />
         </div>
         <div className="w-1/2 h-px mx-auto bg-gray-400 mb-7"></div>
@@ -70,7 +51,7 @@ const DiaryDetail = () => {
             // class="overflow-hidden lg:overflow-auto scrollbar:!w-1.5 scrollbar:!h-1.5 scrollbar:bg-transparent scrollbar-track:!bg-slate-100
             // scrollbar-thumb:!rounded scrollbar-thumb:!bg-slate-300 scrollbar-track:!rounded dark:scrollbar-track:!bg-slate-500/[0.16]
             // dark:scrollbar-thumb:!bg-slate-500/50 max-h-96 supports-scrollbars:pr-2 lg:max-h-96"
-            className="block p-2.5 w-1/2 text-sm text-gray-900 rounded-lg resize-none"
+            className="scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-gray-300 h-auto scrollbar-thumb-rounded-full scrollbar-track-rounded-full overflow-y-scroll block p-2.5 w-1/2 text-sm text-gray-900 rounded-lg resize-none "
           />
         </div>
 
@@ -107,15 +88,6 @@ const DiaryDetail = () => {
                   <Dialog.Panel className="relative overflow-hidden text-left transition-all transform bg-white rounded-lg shadow-xl sm:my-8 sm:w-full sm:max-w-lg">
                     <div className="flex justify-center px-4 pt-5 pb-4 bg-white sm:p-6 sm:pb-4">
                       <div className="sm:flex sm:items-start">
-                        {
-                          // 빨간 경고 그림
-                          /* <div className="flex items-center justify-center flex-shrink-0 w-12 h-12 mx-auto bg-red-100 rounded-full sm:mx-0 sm:h-10 sm:w-10">
-                          <ExclamationTriangleIcon
-                            className="w-6 h-6 text-red-600"
-                            aria-hidden="true"
-                          />
-                        </div> */
-                        }
                         <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
                           <Dialog.Title
                             as="h3"
@@ -128,11 +100,10 @@ const DiaryDetail = () => {
                               <input
                                 // checked
                                 id="red-checkbox"
-                                type="checkbox"
+                                type="radio"
                                 name="checkbox"
                                 value=""
                                 class="w-4 h-4 accent-red-600 bg-gray-100 rounded border-gray-300 "
-                                onClick={clickCheck("red-checkbox")}
                               />
                               <label
                                 // for="red-checkbox"
@@ -145,11 +116,10 @@ const DiaryDetail = () => {
                               <input
                                 // checked=""
                                 id="green-checkbox"
-                                type="checkbox"
+                                type="radio"
                                 name="checkbox"
                                 value=""
                                 class="w-4 h-4 accent-green-600 bg-gray-100 rounded border-gray-300"
-                                onClick={clickCheck("green-checkbox")}
                               />
                               <label
                                 // for="green-checkbox"
@@ -162,11 +132,10 @@ const DiaryDetail = () => {
                               <input
                                 // checked=""
                                 id="purple-checkbox"
-                                type="checkbox"
+                                type="radio"
                                 name="checkbox"
                                 value=""
                                 class="w-4 h-4 accent-purple-600 bg-gray-100 rounded border-gray-300"
-                                onClick={clickCheck("purple-checkbox")}
                               />
                               <label
                                 // for="purple-checkbox"
@@ -179,11 +148,10 @@ const DiaryDetail = () => {
                               <input
                                 // checked=""
                                 id="teal-checkbox"
-                                type="checkbox"
+                                type="radio"
                                 name="checkbox"
                                 value=""
                                 class="w-4 h-4 accent-teal-600 bg-gray-100 rounded border-gray-300"
-                                onClick={clickCheck("teal-checkbox")}
                               />
                               <label
                                 // for="teal-checkbox"
@@ -196,11 +164,10 @@ const DiaryDetail = () => {
                               <input
                                 // checked=""
                                 id="yellow-checkbox"
-                                type="checkbox"
+                                type="radio"
                                 name="checkbox"
                                 value=""
                                 class="w-4 h-4 accent-yellow-400 bg-gray-100 rounded border-gray-300 "
-                                onClick={clickCheck("yellow-checkbox")}
                               />
                               <label
                                 // for="yellow-checkbox"
@@ -213,11 +180,10 @@ const DiaryDetail = () => {
                               <input
                                 // checked=""
                                 id="orange-checkbox"
-                                type="checkbox"
+                                type="radio"
                                 name="checkbox"
                                 value=""
                                 class="w-4 h-4 accent-orange-500 bg-gray-100 rounded border-gray-300 "
-                                onClick={clickCheck("orange-checkbox")}
                               />
                               <label
                                 // for="orange-checkbox"

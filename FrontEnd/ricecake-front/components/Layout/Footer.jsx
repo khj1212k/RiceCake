@@ -1,8 +1,8 @@
 export default function Example() {
     return (
-<footer className="bottom-0 left-0 bg-white dark:bg-gray-800 flex-end border-2">
+<footer className="bottom-0 left-0 bg-white dark:bg-gray-800 flex-end border-t-2">
     <div class="max-w-screen-xl mx-auto px-4">
-        <ul class="max-w-screen-md mx-auto text-lg font-light flex flex-wrap  justify-between">
+        <ul class="max-w-screen-md mx-auto text-lg font-light flex flex-wrap justify-between">
             <li class="my-2">
                 <a class="text-gray-400 hover:text-gray-800 dark:text-gray-300 dark:hover:text-white transition-colors duration-200" href="#">
                     FAQ

@@ -3,7 +3,7 @@ import Link from "next/link";
 export default function Example() {
   return (
     <>
-      <div className="flex h-auto bg-white ">
+      <div className="flex h-auto my-20 bg-white ">
         <div className="mx-auto max-w-7xl flex items-center justify-center px-4 sm:px-6">
           <div className="flex space-y-20 flex-col text-center my-28 ">
             <Link href="/Story/StoryMain">
