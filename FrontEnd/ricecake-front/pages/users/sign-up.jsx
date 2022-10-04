@@ -12,6 +12,7 @@ const SignUp = () => {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [isDuplicate, setIsDuplicate] = useState(false);
+    const [isValidate, setIsValidate] = useState(true);
     const [code, setCode] = useAtom(emailCodeAtom);
 
     const [auth, setAuth] = useAtom(authAtom);
@@ -28,27 +29,42 @@ const SignUp = () => {
         };
         // console.log(options);
         fetch('http://localhost:8090/users/find', options)
-            .then(response => {response.status === 200 ? setIsDuplicate(true) : setIsDuplicate(false)})
+            .then(response => { response.status === 200 ? setIsDuplicate(true) : setIsDuplicate(false) })
             .catch(error => console.error('실패', error));
 
         // console.log(isDuplicate);
     }, [userId]);
-    useEffect(() => {}, [password, name, email])
 
-    const idInputHandler = (event) => {setUserId(event.target.value);}
+    useEffect(() => {
+        if (email === '') setIsValidate(true);
+    }, [email])
+
+    useEffect(() => { }, [password, name])
+
+    const validateEmail = (email) => {
+        return email.match(
+            /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+        );
+    };
+
+    const idInputHandler = (event) => { setUserId(event.target.value); }
     const passwordInputHandler = (event) => setPassword(event.target.value);
     const nameInputHandler = (event) => setName(event.target.value);
-    const emailInputHandler = (event) => setEmail(event.target.value);
+    const emailInputHandler = (event) => {
+        setIsValidate(false);
+        setEmail(event.target.value);
+        if (validateEmail(email)) setIsValidate(true);
+    }
 
     const checkBlank = () => {
         let isNotBlank = true;
-        const userInfo = [{ key:'userId', value: userId },
-                            { key: 'password', value: password }, 
-                            { key: 'name', value: name }, 
-                            { key: 'email', value: email }
-                        ];
+        const userInfo = [{ key: 'userId', value: userId },
+        { key: 'password', value: password },
+        { key: 'name', value: name },
+        { key: 'email', value: email }
+        ];
         for (let i = 0; i < userInfo.length; i++) {
-            if(userInfo[i].value === '') {
+            if (userInfo[i].value === '') {
                 document.getElementById(userInfo[i].key).placeholder = `${userInfo[i].key}를 입력하세요.`;
                 isNotBlank = false;
             }
@@ -59,11 +75,11 @@ const SignUp = () => {
     const signUpButtonHandler = (event) => {
         event.preventDefault();
 
-        if(!checkBlank()) return;
+        if (!checkBlank()) return;
 
         const formValue = { email };
         console.log(formValue);
-        setAuth({userId: userId, password: password, name: name, email: email});
+        setAuth({ userId: userId, password: password, name: name, email: email });
         console.log(auth);
 
         const options = {
@@ -76,12 +92,13 @@ const SignUp = () => {
 
         fetch('http://localhost:8090/email/confirm', options)
             .then(response => response.json())
-            .then(code => setCode({code: code}))
+            .then(code => setCode({ code: code }))
             .catch(error => console.error('실패', error));
         router.push('./email-confirm');
     };
 
     const idTextColor = isDuplicate ? 'font-bold text-red-700 line-through' : 'text-grey-900';
+    const emailTextColor = isValidate ? 'text-grey-900' : 'font-bold text-red-700 line-through';
 
     return <>
         <div className="flex h-3/4 items-center justify-center sm:px-6 lg:px-8">
@@ -120,9 +137,10 @@ const SignUp = () => {
                         <div>
                             <label htmlFor="email" className="sr-only">EMAIL</label>
                             <input id="email" type="email" onChange={emailInputHandler} required autoFocus
-                                className="relative block w-full appearance-none rounded-none rounded-b-md border
-                                 border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10
-                                 focus:border-black focus:outline-none focus:ring-black sm:text-sm"
+                                className={`relative block w-full appearance-none rounded-none rounded-b-md border
+                                 border-gray-300 px-3 py-2 placeholder-gray-500 focus:z-10
+                                 focus:border-black focus:outline-none
+                                 focus:ring-black sm:text-sm ${emailTextColor}`}
                                 placeholder="email" />
                         </div>
                     </div>

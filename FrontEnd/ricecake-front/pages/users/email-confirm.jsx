@@ -102,7 +102,7 @@ const EmailConfirm = () => {
         </div>
 
         <Transition.Root show={failModalIsOpen} as={Fragment}>
-            <Dialog as="div" className="relative z-10" initialFocus={cancelButtonRef}>
+            <Dialog as="div" className="relative z-10" initialFocus={cancelButtonRef} onClose={setFailModalIsOpen}>
                 <Transition.Child
                     as={Fragment}
                     enter="ease-out duration-300"
