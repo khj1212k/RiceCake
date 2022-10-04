@@ -1,28 +1,70 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router';
 import { useAtom } from 'jotai';
 import authAtom from '../../stores/authAtom';
+import emailCodeAtom from '../../stores/emailCodeAtom';
 
 
 const SignUp = () => {
-    const [id, setId] = useState('');
+    const [userId, setUserId] = useState('');
     const [password, setPassword] = useState('');
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
+    const [isDuplicate, setIsDuplicate] = useState(false);
+    const [code, setCode] = useAtom(emailCodeAtom);
 
     const [auth, setAuth] = useAtom(authAtom);
     const router = useRouter();
 
-    const idInputHandler = (event) => setId(event.target.value); //입력된 value 값을 id state에 보관
+    useEffect(() => {
+        const formValue = { userId };
+        const options = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formValue),
+        };
+        // console.log(options);
+        fetch('http://localhost:8090/users/find', options)
+            .then(response => {response.status === 200 ? setIsDuplicate(true) : setIsDuplicate(false)})
+            .catch(error => console.error('실패', error));
+
+        // console.log(isDuplicate);
+    }, [userId]);
+    useEffect(() => {}, [password, name, email])
+
+    const idInputHandler = (event) => {setUserId(event.target.value);}
     const passwordInputHandler = (event) => setPassword(event.target.value);
     const nameInputHandler = (event) => setName(event.target.value);
     const emailInputHandler = (event) => setEmail(event.target.value);
 
-    const signInButtonHandler = (event) => {
+    const checkBlank = () => {
+        let isNotBlank = true;
+        const userInfo = [{ key:'userId', value: userId },
+                            { key: 'password', value: password }, 
+                            { key: 'name', value: name }, 
+                            { key: 'email', value: email }
+                        ];
+        for (let i = 0; i < userInfo.length; i++) {
+            if(userInfo[i].value === '') {
+                document.getElementById(userInfo[i].key).placeholder = `${userInfo[i].key}를 입력하세요.`;
+                isNotBlank = false;
+            }
+        }
+        return isNotBlank;
+    }
+
+    const signUpButtonHandler = (event) => {
         event.preventDefault();
 
-        const formValue = { id, password };
+        if(!checkBlank()) return;
+
+        const formValue = { email };
+        console.log(formValue);
+        setAuth({userId: userId, password: password, name: name, email: email});
+        console.log(auth);
 
         const options = {
             method: 'POST',
@@ -32,16 +74,17 @@ const SignUp = () => {
             body: JSON.stringify(formValue),
         };
 
-        fetch('http://localhost:8090/users/auth/sign-in', options)
+        fetch('http://localhost:8090/email/confirm', options)
             .then(response => response.json())
-            .then(user => setAuth({ token: user.token, user: user.id }))
+            .then(code => setCode({code: code}))
             .catch(error => console.error('실패', error));
-
-        router.push('/');
+        router.push('./email-confirm');
     };
 
+    const idTextColor = isDuplicate ? 'font-bold text-red-700 line-through' : 'text-grey-900';
+
     return <>
-        <div className="flex h-3/4 items-center justify-center sm:px-6 lg:px-8" s>
+        <div className="flex h-3/4 items-center justify-center sm:px-6 lg:px-8">
             <div className="w-1/3 max-w-md space-y-16">
                 <div>
                     <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">JOIN</h2>
@@ -49,12 +92,12 @@ const SignUp = () => {
                 <div className="flex items-center justify-center">
                     <div className='flex-col w-4/5'>
                         <div>
-                            <label htmlFor="user-id" className="sr-only">User ID</label>
-                            <input id="user-id" type="text" onChange={idInputHandler} autoComplete="id"
-                                required className="relative block w-full appearance-none rounded-none rounded-t-md border
-                                 border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10
+                            <label htmlFor="userId" className="sr-only">User ID</label>
+                            <input id="userId" type="text" onChange={idInputHandler} autoComplete="id"
+                                required className={`relative block w-full appearance-none rounded-none rounded-t-md border
+                                 border-gray-300 px-3 py-2 placeholder-gray-500 focus:z-10
                                  focus:border-black focus:outline-none
-                                 focus:ring-black sm:text-sm"
+                                 focus:ring-black sm:text-sm ${idTextColor}`}
                                 placeholder="ID" />
 
                         </div>
@@ -68,7 +111,7 @@ const SignUp = () => {
                         </div>
                         <div>
                             <label htmlFor="name" className="sr-only">NAME</label>
-                            <input id="name" type="text" onChange={nameInputHandler} 
+                            <input id="name" type="text" onChange={nameInputHandler}
                                 required className="relative block w-full appearance-none rounded-none rounded-tb-md border
                                  border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10
                                  focus:border-black focus:outline-none focus:ring-black sm:text-sm"
@@ -76,7 +119,7 @@ const SignUp = () => {
                         </div>
                         <div>
                             <label htmlFor="email" className="sr-only">EMAIL</label>
-                            <input id="email" type="email" onChange={emailInputHandler} required autoFocus 
+                            <input id="email" type="email" onChange={emailInputHandler} required autoFocus
                                 className="relative block w-full appearance-none rounded-none rounded-b-md border
                                  border-gray-300 px-3 py-2 text-gray-900 placeholder-gray-500 focus:z-10
                                  focus:border-black focus:outline-none focus:ring-black sm:text-sm"
@@ -86,19 +129,18 @@ const SignUp = () => {
                 </div>
                 <div className="flex items-center justify-between py-1">
                     <div className="text-md">
-                        <Link href="/auth/sign-up">
+                        <Link href="/users/sign-in">
                             <a className="ml-10 font-bold border px-3 py-2
                                 border-transparent bg-black text-white rounded-md
                                 hover:text-black hover:bg-white" >CANCEL</a>
                         </Link>
                     </div>
 
-                    <div className="text-md">
-                        <Link href="/auth/sign-up">
-                            <a className="mr-10 font-bold border px-3 py-2
+                    <div className="text-md" onClick={signUpButtonHandler}>
+                        <a className="mr-10 font-bold border px-3 py-2
                                 border-transparent bg-black text-white rounded-md
-                                hover:text-black hover:bg-white">JOIN</a>
-                        </Link>
+                                hover:text-black hover:bg-white">JOIN
+                        </a>
                     </div>
                 </div>
             </div>

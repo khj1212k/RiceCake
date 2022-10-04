@@ -23,18 +23,19 @@ public class EmailService {
     private final JavaMailSender javaMailSender;
 
     //인증번호 생성
-    private final String ePw = createKey();
+    private String ePw;
 
     @Value("${spring.mail.username}")
     private String id;
 
     public MimeMessage createMessage(String to)throws MessagingException, UnsupportedEncodingException {
+        ePw = createKey();
         log.info("보내는 대상 : "+ to);
         log.info("인증 번호 : " + ePw);
         MimeMessage  message = javaMailSender.createMimeMessage();
 
         message.addRecipients(MimeMessage.RecipientType.TO, to); // to 보내는 대상
-        message.setSubject("ㅇㅇㅇ 회원가입 인증 코드: "); //메일 제목
+        message.setSubject("RiceCake 회원가입 인증 코드: "); //메일 제목
 
         // 메일 내용 메일의 subtype을 html로 지정하여 html문법 사용 가능
         String msg="";
@@ -56,7 +57,7 @@ public class EmailService {
         Random rnd = new Random();
 
         for (int i = 0; i < 6; i++) { // 인증코드 6자리
-            key.append((rnd.nextInt(10)));
+            key.append((rnd.nextInt(9)));
         }
         return key.toString();
     }
