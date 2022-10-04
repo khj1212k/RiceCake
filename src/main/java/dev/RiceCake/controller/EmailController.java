@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("email")
+@CrossOrigin(origins = "*")
 public class EmailController {
     private final EmailService emailService;
 

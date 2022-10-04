@@ -4,21 +4,28 @@ import { useRouter } from 'next/router';
 import { useAtom } from 'jotai';
 import authAtom from '../../stores/authAtom';
 import { ArrowRightCircleIcon } from '@heroicons/react/24/outline';
+import emailCodeAtom from '../../stores/emailCodeAtom';
 
 
 const SignIn = () => {
-    const [id, setId] = useState('');
+    const [userId, setUserId] = useState('');
     const [password, setPassword] = useState('');
     const [auth, setAuth] = useAtom(authAtom);
+    const [code, setCode] = useAtom(emailCodeAtom);
     const router = useRouter();
 
-    const idInputHandler = (event) => setId(event.target.value); //입력된 value 값을 id state에 보관
+    console.log(auth);
+    console.log(code);
+
+    const idInputHandler = (event) => setUserId(event.target.value); //입력된 value 값을 id state에 보관
     const passwordInputHandler = (event) => setPassword(event.target.value);
 
     const signInButtonHandler = (event) => {
+        // console.log(userId, password);
         event.preventDefault();
 
-        const formValue = { id, password };
+        const formValue = { userId, password };
+        // console.log(formValue);
 
         const options = {
             method: 'POST',
@@ -28,11 +35,23 @@ const SignIn = () => {
             body: JSON.stringify(formValue),
         };
 
-        fetch('http://localhost:8090/users/auth/sign-in', options)
-            .then(response => response.json())
-            .then(user => setAuth({ user: user.id }))
-            .catch(error => console.error('실패', error));
+        // console.log(options);
 
+        fetch('http://localhost:8090/users/auth/sign-in', options)
+            .then(response => {
+                if(response.status === 200) {
+                    console.log(200);
+                    console.log(response.json());
+                    return response.json();
+                }
+                else if(response.status === 204) {
+                    console.log(204);
+                    return;
+                }
+            })
+            .then(user => console.log(user))
+            .catch(error => console.error('아이디 또는 비밀번호를 확인하세요.', error));
+        console.log(auth);
         router.push('/');
     };
 

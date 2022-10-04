@@ -16,6 +16,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("users")
+@CrossOrigin(origins = "*")
 public class UserController {
     @Autowired
     private UserService userService;
@@ -25,6 +26,16 @@ public class UserController {
 
     @Autowired
     private DiaryService diaryService;
+
+    @PostMapping("find")
+    public ResponseEntity<User.Response> findUser(@RequestBody User.Request request) {
+
+        User user = userService.findUserById(request.getUserId());
+        User.Response response = User.Response.toResponse(user);
+        HttpStatus status = response != null ? HttpStatus.OK : HttpStatus.NO_CONTENT;
+
+        return ResponseEntity.status(status).body(response);
+    }
 
     @PostMapping("auth/sign-in")
     public ResponseEntity<User.Response> signIn(@RequestBody User.Request request) {
