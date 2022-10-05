@@ -8,8 +8,7 @@ body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
-
-  height: 100%;
+  height: 753px;
 }
 
 #__next {
@@ -29,8 +28,28 @@ a {
   html {
     color-scheme: dark;
   }
+
   body {
     color: white;
     background: black;
   }
+}
+
+body {
+  overflow-y: scroll;
+  overflow-x: scroll;
+}
+
+body::-webkit-scrollbar {
+  width: 7px;
+}
+
+body::-webkit-scrollbar-thumb {
+  height: 20%;
+  background: #374151;
+  border-radius: 10px;
+}
+
+body::-webkit-scrollbar-track {
+  background: #d1d5db;
 }
