@@ -57,7 +57,7 @@ const SignIn = () => {
         if(isLogin) {
             setAuth({userId: userId});
             console.log(auth);
-            router.push('/');
+            router.push('/Main/Main');
         }
         else {
             setFailModalIsOpen(true);

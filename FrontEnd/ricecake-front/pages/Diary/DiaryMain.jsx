@@ -1,8 +1,41 @@
 import Link from "next/link";
 import React, { useState } from 'react';
 import Calendars from '../Calendar';
+import { useRouter } from "next/router";
+import { useAtom } from 'jotai';
+import authAtom from "../../stores/authAtom";
+import { XMarkIcon } from '@heroicons/react/24/outline'
+
 
 const DiaryMain = () => {
+
+  const [userId, setuserId] = useState('');
+  const [diaryDate, setdiaryDate] = useState('');
+  const [auth, setAuth] = useAtom(authAtom);
+  const router = useRouter();
+
+  // const DiaryButtonHandler = (event) => {
+  //   event.preventDefault();
+
+  //   const formValue = { userId, diaryDate };
+
+  //   const options = {
+  //     method: 'POST',
+  //     headers: {
+  //       'Content-Type': 'application/json'
+  //     },
+  //     body: JSON.stringify(formValue),
+  //   };
+
+  //   const url = 'userId' + '/' + 'diaryDate';
+  //   fetch('http://localhost"8090/diaries/' + url , options)
+  //   ,then(response => {
+
+  //   })
+
+  //   }
+  // };
+
 
   return (
     <>
@@ -42,6 +75,14 @@ const DiaryMain = () => {
                 rows="12"
                 className="scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-gray-300 h-auto scrollbar-thumb-rounded-full scrollbar-track-rounded-full overflow-y-scroll block p-2.5 w-full text-sm text-gray-900 rounded-lg resize-none"
               />
+            </div>
+            <div className="flex justify-center">
+              <button
+                // onClick={}
+                type="button"
+              >
+                <XMarkIcon className="h-5 px-1 text-gray-800 hover:text-gray-400" />
+              </button>
             </div>
           </div>
         </div>

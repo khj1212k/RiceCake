@@ -1,5 +1,5 @@
 import React, { Fragment, useRef, useState } from "react";
-import { PlusIcon } from '@heroicons/react/24/outline'
+import { PlusIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import Link from "next/link";
 import { Dialog, Transition } from "@headlessui/react";
 
@@ -10,6 +10,7 @@ const StoryMain = () => {
         setOpen(true);
     };
     const cancelButtonRef = useRef(null);
+
 
     return (
         <>
@@ -27,8 +28,17 @@ const StoryMain = () => {
                         All Stories
                     </div>
                     <div class="mt-3 mb-7 mx-auto h-px bg-gray-400 w-2/3"></div>
-                    <div>
-                        {/* storylist */}
+                    <div className="flex justify-center">
+                        <textarea
+                            placeholder="Main Story 1"
+                            className="row-span-6 pt-10 overflow-hidden text-2xl text-center text-gray-900 hover:text-gray-300 outline-none resize-none"
+                        />
+                        <button
+                            // onClick={}
+                            type="button"
+                        >
+                            <XMarkIcon className="text-center block h-5 px-1 text-gray-800 hover:text-gray-400" />
+                        </button>
                     </div>
 
                     <button

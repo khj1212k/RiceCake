@@ -18,7 +18,7 @@ export default function Example() {
             <a className="flex flex-shrink-0 items-center ">
               RiceCake
               <StarIcon
-                className="block h-5 w-auto px-1 lg:hidden"
+                className="block h-5 w-auto px-1"
               />
             </a>
           </Link>
@@ -73,7 +73,7 @@ export default function Example() {
                       href="/Story/StoryMain"
                       className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
                     >
-                      Your Stories
+                      My Stories
                     </a>
                   )}
                 </Menu.Item>
@@ -83,7 +83,17 @@ export default function Example() {
                       href="/Diary/DiaryMain"
                       className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
                     >
-                      Your Diaries
+                      My Diaries
+                    </a>
+                  )}
+                </Menu.Item>
+                <Menu.Item>
+                  {({ active }) => (
+                    <a
+                      href="/Main/Main"
+                      className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
+                    >
+                      Profie
                     </a>
                   )}
                 </Menu.Item>
