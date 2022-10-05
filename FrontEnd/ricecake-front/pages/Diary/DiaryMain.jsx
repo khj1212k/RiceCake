@@ -17,10 +17,10 @@ const DiaryMain = () => {
   };
   const cancelButtonRef = useRef(null);
 
+
   return (
     <>
       <div className="items-center justify-center min-h-full px-4 py-12 mx-auto h-3/4 sm:px-6 lg:px-8 max-w-7xl">
-        {/* <div class="flex space-x-2 justify-start px-6 ">DiaryMain</div> */}
         <div className="flex justify-end px-6 space-x-2 ">
           <Link href="/Main/Main">
             <a className="inline-block px-6 py-2.5 bg-black text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-gray-700 hover:shadow-lg focus:bg-gray-600 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-800 active:shadow-lg transition duration-150 ease-in-out">
@@ -61,7 +61,7 @@ const DiaryMain = () => {
             </div>
             <div className="flex justify-center">
               <button
-                // onClick={}
+                // onClick={deleteButtonHandler}
                 type="button"
               >
                 <XMarkIcon className="h-5 px-1 text-gray-800 hover:text-gray-400" />
@@ -124,7 +124,7 @@ const DiaryMain = () => {
                                 // for="red-checkbox"
                                 class="ml-2 text-sm font-medium text-gray-900"
                               >
-                                Red
+                                Upset
                               </label>
                             </div>
                             <div class="flex items-center mr-4">
@@ -140,7 +140,7 @@ const DiaryMain = () => {
                                 // for="green-checkbox"
                                 class="ml-2 text-sm font-medium text-gray-900 "
                               >
-                                Green
+                                Tired
                               </label>
                             </div>
                             <div class="flex items-center mr-4">
@@ -156,7 +156,7 @@ const DiaryMain = () => {
                                 // for="purple-checkbox"
                                 class="ml-2 text-sm font-medium text-gray-900 "
                               >
-                                Purple
+                                Wonderful
                               </label>
                             </div>
                             <div class="flex items-center mr-4">
@@ -172,7 +172,7 @@ const DiaryMain = () => {
                                 // for="teal-checkbox"
                                 class="ml-2 text-sm font-medium text-gray-900 "
                               >
-                                Teal
+                                Wrorried
                               </label>
                             </div>
                             <div class="flex items-center mr-4">
@@ -188,7 +188,7 @@ const DiaryMain = () => {
                                 // for="yellow-checkbox"
                                 class="ml-2 text-sm font-medium text-gray-900 "
                               >
-                                Yellow
+                                Great
                               </label>
                             </div>
                             <div class="flex items-center mr-4">
@@ -204,7 +204,7 @@ const DiaryMain = () => {
                                 // for="orange-checkbox"
                                 class="ml-2 text-sm font-medium text-gray-900 "
                               >
-                                Orange
+                                Soso
                               </label>
                             </div>
                           </div>

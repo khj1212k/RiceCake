@@ -1,5 +1,5 @@
 package dev.RiceCake.entity;
 
 public enum Emotion {
-    GOOD, BAD, HAPPY
+    GREAT, TIRED, SOSO, WORRIED, UPSET, WONDERFUL
 }
