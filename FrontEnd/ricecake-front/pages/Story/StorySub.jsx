@@ -2,11 +2,13 @@ import React, { useEffect, useState } from "react";
 import Link from "next/link";
 import { PlusIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import { useAtom } from "jotai";
-import sendAtom from "../../stores/sendAtom";
+import sendStoryList from "../../stores/sendStoryList";
+import sendStory from "../../stores/sendStory";
 import { useRouter } from "next/router";
 
 const StorySub = () => {
-  const [sendTitle, setSendTitle] = useAtom(sendAtom);
+  const [sendTitle, setSendTitle] = useAtom(sendStoryList);
+  const [story, setStory] = useAtom(sendStory);
   const router = useRouter();
   const [stories, setStroies] = useState();
 
@@ -56,7 +58,7 @@ const StorySub = () => {
                 key={story.storyId}
                 onClick={() => {
                   router.push("/Story/StoryShow");
-                  // sendDataToStorySub(story);
+                  setStory(story);
                 }}
               >
                 {story.storyTitle}

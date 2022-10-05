@@ -4,7 +4,7 @@ import Link from "next/link";
 import { Dialog, Transition } from "@headlessui/react";
 import { useAtom } from "jotai";
 import authAtom from "../../stores/authAtom";
-import sendAtom from "../../stores/sendAtom";
+import sendStoryList from "../../stores/sendStoryList";
 import { useRouter } from "next/router";
 
 const StoryMain = () => {
@@ -16,83 +16,66 @@ const StoryMain = () => {
 
   const [storyListTitle, setStoryListTitle] = useState("");
   const [storyListSubTitle, setStoryListSubTitle] = useState("");
-  //   const [orderNumber, setOrderNumber] = useState("");
+  const [orderNumber, setOrderNumber] = useState("");
   const [loginUser, setAuth] = useAtom(authAtom);
   const [storyLists, setStoryLists] = useState([]);
   const [open, setOpen] = useState(false);
-  const [_, setSendTitle] = useAtom(sendAtom);
+  const [_, setSendStoryList] = useAtom(sendStoryList);
 
-  //   function sL({ storyList }) {
-  //     return (
-  // <div>
-  //         <b>{storyList.storyListTitle}</b>
-  //       </div>
-  //     );
-  //   }
-
-  useEffect(() => {
-    // console.log("시작");
-    // console.log(storyLists);
+  const render = useEffect(() => {
     async function getStroyList() {
       const userId = loginUser.userId;
       const getUrl = "http://localhost:8090/storyList/" + userId;
       await fetch(getUrl)
         .then((response) => response.json())
         .then((storyList) => {
-          //   console.log(storyList);
           setStoryLists(storyList);
-          //   const storyListTitles = (storyList) => {
-          //     storyList.forEach((element) => {});
-          //   };
         });
     }
     getStroyList();
     console.log(storyLists);
-
-    // const listItems = storyLists.map((storyLists) =>
-    //   console.log(storyLists.storyListTitle)
-    // );
   }, []); // 처음 랜더링 시킬때만 실행
 
   const storyListTitleHandler = (event) => {
-    // setStoryListTitle(event.target.value);
-    // console.log(id);
+    setStoryListTitle(event.target.value);
   };
 
   const storyListSubTitleHandler = (event) => {
-    // setStoryListSubTitle(event.target.value);
-    // console.log(id);
+    setStoryListSubTitle(event.target.value);
   };
 
   const sendDataToStorySub = (story) => {
-    setSendTitle({ data: story });
-    // console.log(title);
-    // console.log("atom" + sendTitle.title);
+    setSendStoryList({ data: story });
   };
 
   const createStoryListHandler = (event) => {
-    // event.preventDefault(); // 기본 폼 동작 비활성화
-    // const userId = loginUser.userId;
-    // const user = { userId };
-    // const submitValue = {
-    //   storyListTitle,
-    //   storyListSubTitle,
-    //   orderNumber,
-    //   user,
-    // };
-    // const options = {
-    //   method: "POST",
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    //   body: JSON.stringify(submitValue), // 직렬화
-    // };
-    // fetch("http://localhost:8090//storyList/create", options)
-    //   .then((response) => response.json())
-    //   .then((user) => setAuth({ token: user.token, user: user.id })) // 모든 StoryList 데이터를 가져와서 배열에 담아줘야하는건가
-    //   .catch((error) => console.log("fail", error));
-    // // router.push("/Story/StoryMain");
-    // setOpen(false);
+    event.preventDefault(); // 기본 폼 동작 비활성화
+    const userId = loginUser.userId;
+    const user = { userId };
+    const submitValue = {
+      storyListTitle,
+      storyListSubTitle,
+      orderNumber,
+      user,
+    };
+    console.log(submitValue);
+    const options = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(submitValue), // 직렬화
+    };
+    fetch("http://localhost:8090/storyList/create", options)
+      .then((response) => response.json())
+      .then((storyList) => {
+        setStoryLists(storyList);
+        console.log(storyList);
+      }) // 모든 StoryList 데이터를 가져와서 배열에 담아줘야하는건가
+      .catch((error) => console.log("fail", error));
+    router.push("/Story/StoryMain");
+    setOpen(false);
+    render;
   };
 
   return (

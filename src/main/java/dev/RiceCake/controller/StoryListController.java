@@ -35,13 +35,15 @@ private UserService userService;
 
     //TODO 스토리 리스트 추가
     @PostMapping("create")
-    public void createStoryList(@RequestBody @Valid StoryList.Request request){
+    public List<StoryList.Response> createStoryList(@RequestBody @Valid StoryList.Request request){
         StoryList storyList = StoryList.Request.toEntity(request);
         User foundUser = userService.findUserById(request.getUser().getUserId());
 
         storyList.setUser(foundUser);
         storyListService.saveStoryList(storyList);
 //        System.out.println(storyList); dto 를 만들어서 순환참조를 없앤다.(StoryList,User) toString울 고쳐서 해결
+        List<StoryList> storyLists = storyListService.getStoryList(request.getUser().getUserId());
+        return StoryList.Response.toResponseList(storyLists);
     }
 
     //TODO 스토리 리스트 삭제 (안에 있는 스토리도 다 삭제)

@@ -1,7 +1,7 @@
 import { atom } from "jotai";
 
-const sendAtom = atom({
+const sendStory = atom({
   data: null,
 }); //기본값으로 객체
 
-export default sendAtom;
+export default sendStory;

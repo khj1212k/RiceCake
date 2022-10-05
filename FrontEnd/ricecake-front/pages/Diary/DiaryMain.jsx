@@ -1,15 +1,13 @@
 import Link from "next/link";
-import React, { Fragment, useRef, useState } from 'react';
-import Calendars from '../Calendar';
+import React, { Fragment, useRef, useState } from "react";
+import Calendars from "../Calendar";
 import { Dialog, Transition } from "@headlessui/react";
 import { useRouter } from "next/router";
-import { useAtom } from 'jotai';
+import { useAtom } from "jotai";
 import authAtom from "../../stores/authAtom";
-import { XMarkIcon } from '@heroicons/react/24/outline'
-
+import { XMarkIcon } from "@heroicons/react/24/outline";
 
 const DiaryMain = () => {
-
   const [open, setOpen] = useState(false);
 
   const clickHandler = () => {
@@ -17,10 +15,10 @@ const DiaryMain = () => {
   };
   const cancelButtonRef = useRef(null);
 
-
   return (
     <>
       <div className="items-center justify-center min-h-full px-4 py-12 mx-auto h-3/4 sm:px-6 lg:px-8 max-w-7xl">
+        {/* <div class="flex space-x-2 justify-start px-6 ">DiaryMain</div> */}
         <div className="flex justify-end px-6 space-x-2 ">
           <Link href="/Main/Main">
             <a className="inline-block px-6 py-2.5 bg-black text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-gray-700 hover:shadow-lg focus:bg-gray-600 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-800 active:shadow-lg transition duration-150 ease-in-out">
@@ -37,7 +35,7 @@ const DiaryMain = () => {
           </button>
         </div>
 
-        <div id="Container" className="flex justify-around  p-5">
+        <div id="Container" className="flex justify-around p-5">
           <div id="Calander Container" className="pt-16 ">
             Calender
             <Calendars />
@@ -46,7 +44,7 @@ const DiaryMain = () => {
             <div className="flex justify-center w-96 ">
               <textarea
                 placeholder="Title"
-                className="row-span-6 pt-10 overflow-hidden text-4xl text-center bg-transparent text-gray-900 outline-none resize-none w-full"
+                className="w-full row-span-6 pt-10 overflow-hidden text-4xl text-center text-gray-900 bg-transparent outline-none resize-none"
               />
             </div>
             <div className="flex justify-center">
