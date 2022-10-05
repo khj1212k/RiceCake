@@ -1,24 +1,63 @@
 import Link from "next/link";
-import React, { Fragment, useRef, useState } from "react";
+import React, { Fragment, useEffect, useRef, useState } from "react";
 import Calendars from "../Calendar";
 import { Dialog, Transition } from "@headlessui/react";
 import { useRouter } from "next/router";
 import { useAtom } from "jotai";
 import authAtom from "../../stores/authAtom";
+import dateAtom from "../../stores/dateAtom";
 import { XMarkIcon } from "@heroicons/react/24/outline";
 
 const DiaryMain = () => {
-  const [open, setOpen] = useState(false);
-
   const clickHandler = () => {
     setOpen(true);
   };
+
+  const [open, setOpen] = useState(false);
+
   const cancelButtonRef = useRef(null);
+  const router = useRouter();
+
+  const [diaryTitle, setDiaryTitle] = useState("");
+  const [diaryContent, setDiaryContent] = useState("");
+  const [emotion, setEmotion] = useState("");
+  const [loginUser, setAuth] = useAtom(authAtom);
+  const [date, setDate] = useAtom(dateAtom);
+
+  const diaryTitleHandler = (event) => {
+    setDiaryTitle(event.target.value);
+  };
+
+  const diaryContentsHandler = (event) => {
+    setDiaryContent(event.target.value);
+  };
+
+  const createEmotionHandler = (event) => {};
+
+  const createDiaryTitleHandler = (event) => {};
+
+  const createDiaryContentHandelr = (event) => {};
+
+  useEffect(() => {
+    async function getDiaryTitle() {
+      const userId = loginUser.userId;
+      console.log(date);
+      const getUrl =
+        "http://localhost:8090/diaries/" + date.data + "/" + userId;
+      console.log(getUrl);
+      await fetch(getUrl)
+        .then((response) => response.json())
+        .then((diaryTitle) => {
+          setDiaryTitle(diaryTitle);
+          setDiaryContent(diaryContent);
+        });
+    }
+    getDiaryTitle();
+  }, []);
 
   return (
     <>
       <div className="items-center justify-center min-h-full px-4 py-12 mx-auto h-3/4 sm:px-6 lg:px-8 max-w-7xl">
-        {/* <div class="flex space-x-2 justify-start px-6 ">DiaryMain</div> */}
         <div className="flex justify-end px-6 space-x-2 ">
           <Link href="/Main/Main">
             <a className="inline-block px-6 py-2.5 bg-black text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-gray-700 hover:shadow-lg focus:bg-gray-600 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-800 active:shadow-lg transition duration-150 ease-in-out">
@@ -44,6 +83,7 @@ const DiaryMain = () => {
             <div className="flex justify-center w-96 ">
               <textarea
                 placeholder="Title"
+                onChange={diaryTitleHandler}
                 className="w-full row-span-6 pt-10 overflow-hidden text-4xl text-center text-gray-900 bg-transparent outline-none resize-none"
               />
             </div>
@@ -53,6 +93,7 @@ const DiaryMain = () => {
             <div className="flex justify-center">
               <textarea
                 placeholder="내용을 입력해주세요."
+                onChange={diaryContentsHandler}
                 rows="12"
                 className="scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-gray-300 h-auto scrollbar-thumb-rounded-full scrollbar-track-rounded-full overflow-y-scroll block p-2.5 w-full text-sm text-gray-900 rounded-lg bg-transparent resize-none"
               />
@@ -213,7 +254,7 @@ const DiaryMain = () => {
                       <button
                         type="button"
                         className="inline-flex justify-center w-full px-4 py-2 text-base font-medium text-white bg-black border border-transparent rounded-md shadow-sm hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 sm:ml-3 sm:w-auto sm:text-sm"
-                        onClick={() => setOpen(false)}
+                        onClick={(createStoryListHandler) => setOpen(false)}
                       >
                         Submit
                       </button>
