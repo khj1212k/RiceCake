@@ -38,7 +38,7 @@ const DiaryDetail = () => {
         <div className="flex justify-center">
           <textarea
             placeholder="Title"
-            className=" row-span-6 pt-10 overflow-hidden text-4xl text-center text-gray-900 outline-none resize-none w-96"
+            className=" row-span-6 pt-10 overflow-hidden text-4xl text-center bg-transparent text-gray-900 outline-none resize-none w-96"
           />
         </div>
         <div className="w-1/2 h-px mx-auto bg-gray-400 mb-7"></div>
@@ -51,7 +51,7 @@ const DiaryDetail = () => {
             // class="overflow-hidden lg:overflow-auto scrollbar:!w-1.5 scrollbar:!h-1.5 scrollbar:bg-transparent scrollbar-track:!bg-slate-100
             // scrollbar-thumb:!rounded scrollbar-thumb:!bg-slate-300 scrollbar-track:!rounded dark:scrollbar-track:!bg-slate-500/[0.16]
             // dark:scrollbar-thumb:!bg-slate-500/50 max-h-96 supports-scrollbars:pr-2 lg:max-h-96"
-            className="scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-gray-300 h-auto scrollbar-thumb-rounded-full scrollbar-track-rounded-full overflow-y-scroll block p-2.5 w-1/2 text-sm text-gray-900 rounded-lg resize-none "
+            className="scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-gray-300 h-auto scrollbar-thumb-rounded-full scrollbar-track-rounded-full overflow-y-scroll block p-2.5 w-1/2 text-sm bg-transparent text-gray-900 rounded-lg resize-none "
           />
         </div>
 

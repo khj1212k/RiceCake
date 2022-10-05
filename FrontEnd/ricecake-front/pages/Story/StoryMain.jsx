@@ -11,6 +11,44 @@ const StoryMain = () => {
     };
     const cancelButtonRef = useRef(null);
 
+    // const [storyListTitle, setStoryListTitle] = useState("");
+    // const [storyListSubTitle, setStoryListSubTitle] = useState("");
+    // const [orderNumber, setOrderNumber] = useState("");
+    // const [loginUser, setAuth] = useAtom(authAtom);
+    // const storyListTitleHandler = (event) => {
+    //     setStoryListTitle(event.target.value);
+    //     // console.log(id);
+    // };
+    // const storyListSubTitleHandler = (event) => {
+    //     setStoryListSubTitle(event.target.value);
+    //     // console.log(id);
+    // };
+    // const createStoryListHandler = (event) => {
+    //     event.preventDefault(); // 기본 폼 동작 비활성화
+    //     // console.log(id,pw);
+    //     const userId = loginUser.userId;
+    //     const user = { userId };
+    //     const submitValue = {
+    //         storyListTitle,
+    //         storyListSubTitle,
+    //         orderNumber,
+    //         user,
+    //     };
+    //     const options = {
+    //         method: "POST",
+    //         headers: {
+    //             "Content-Type": "application/json",
+    //         },
+    //         body: JSON.stringify(submitValue), // 직렬화
+    //     };
+    //     fetch("http://localhost:8090//storyList/create", options)
+    //         .then((response) => response.json())
+    //         .then((user) => setAuth({ token: user.token, user: user.id })) // 모든 StoryList 데이터를 가져와서 배열에 담아줘야하는건가
+    //         .catch((error) => console.log("fail", error));
+    //     // router.push("/Story/StoryMain");
+    //     setOpen(false);
+    // };
+
 
     return (
         <>
@@ -24,14 +62,14 @@ const StoryMain = () => {
                 </div>
 
                 <div className="items-center justify-center min-h-full px-4 py-12 mx-auto h-3/4 sm:px-6 lg:px-8 max-w-7xl">
-                    <div className="flex justify-center p-2 mt-2 text-3xl font-bold leading-8 text-gray-900 sm:text-5xl">
+                    <div className="flex justify-center p-2 mt-2 text-3xl font-bold leading-8 text-gray-900 sm:text-5xl bg-transparent">
                         All Stories
                     </div>
                     <div class="mt-3 mb-7 mx-auto h-px bg-gray-400 w-2/3"></div>
                     <div className="flex justify-center">
                         <textarea
                             placeholder="Main Story 1"
-                            className="row-span-6 pt-10 overflow-hidden text-2xl text-center text-gray-900 hover:text-gray-300 outline-none resize-none"
+                            className="row-span-6 pt-10 bg-transparent overflow-hidden text-2xl text-center text-gray-900 hover:text-gray-300 outline-none resize-none"
                         />
                         <button
                             // onClick={}

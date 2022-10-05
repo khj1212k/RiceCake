@@ -24,7 +24,7 @@ const StorySub = () => {
                 <div className="flex justify-center">
                     <textarea
                         placeholder="Sub Story 1"
-                        className="row-span-6 pt-10 overflow-hidden text-2xl text-center text-gray-900 outline-none resize-none"
+                        className="row-span-6 pt-10 overflow-hidden text-2xl text-center bg-transparent text-gray-900 outline-none resize-none"
                     />
                     <button
                         // onClick={}
