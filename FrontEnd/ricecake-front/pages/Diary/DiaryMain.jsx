@@ -295,7 +295,7 @@ const DiaryMain = () => {
                       <button
                         type="button"
                         className="inline-flex justify-center w-full px-4 py-2 text-base font-medium text-white bg-black border border-transparent rounded-md shadow-sm hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 sm:ml-3 sm:w-auto sm:text-sm"
-                        onClick={submitHandler}
+                        onClick={(createStoryListHandler) => setOpen(false)}
                       >
                         Submit
                       </button>

@@ -25,16 +25,21 @@ const StoryMain = () => {
   const render = useEffect(() => {
     async function getStroyList() {
       const userId = loginUser.userId;
+      console.log(userId);
       const getUrl = "http://localhost:8090/storyList/" + userId;
       await fetch(getUrl)
         .then((response) => response.json())
-        .then((storyList) => {
-          setStoryLists(storyList);
+        .then((data) => {
+          // console.log('parameter' + data);
+          setStoryLists(data);
+          console.log(data);
         });
     }
     getStroyList();
     console.log(storyLists);
   }, []); // 처음 랜더링 시킬때만 실행
+
+  useEffect(() => { console.log(storyLists); }, [storyLists])
 
   const storyListTitleHandler = (event) => {
     setStoryListTitle(event.target.value);
@@ -107,32 +112,34 @@ const StoryMain = () => {
           <div class="mt-3 mb-7 mx-auto h-px bg-gray-400 w-2/3"></div>
           <div className="flex flex-col text-center">
             {storyLists &&
-              storyLists.map((story) => (
-                <div
-                  className="flex justify-center space-x-10"
-                  key={story.storyListId}
-                >
-                  <button
-                    className="text-lg hover:text-gray-400"
+              storyLists.map((story) => {
+                return (
+                  <div
+                    className="flex justify-center space-x-10"
                     key={story.storyListId}
-                    onClick={() => {
-                      router.push("/Story/StorySub");
-                      sendDataToStorySub(story);
-                    }}
                   >
-                    {story.storyListTitle}
-                  </button>
-                  <button
-                    key={story.storyListId}
-                    onClick={() => deleteHandler(story.storyListId)}
-                  >
-                    <XMarkIcon
-                      className="h-5 px-1 text-gray-300 hover:text-gray-400"
+                    <button
+                      className="text-lg hover:text-gray-400"
+                      key={story.storyListId}
+                      onClick={() => {
+                        router.push("/Story/StorySub");
+                        sendDataToStorySub(story);
+                      }}
+
+                    >
+                      {story.storyListTitle}
+                    </button>
+                    <button
+                      key={story.storyListId}
+                      onClick={() => deleteHandler(story.storyListId)}
+                    >
+                      <XMarkIcon
+                        className="h-5 px-1 text-gray-300 hover:text-gray-400"
                       // onClick={}
-                    />
-                  </button>
-                </div>
-              ))}
+                      />
+                    </button>
+                  </div>
+              )})}
             <div>
               {/* {storyLists &&
                 storyLists.map((story) => (
