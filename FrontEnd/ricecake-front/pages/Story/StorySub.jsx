@@ -10,7 +10,7 @@ const StorySub = () => {
   const [sendTitle, setSendTitle] = useAtom(sendStoryList);
   const [story, setStory] = useAtom(sendStory);
   const router = useRouter();
-  const [stories, setStroies] = useState();
+  const [stories, setStroies] = useState([]);
 
   useEffect(() => {
     // console.log("시작");
@@ -33,6 +33,15 @@ const StorySub = () => {
     // );
   }, []); // 처음 랜더링 시킬때만 실행
 
+  const deleteHandler = (storyId) => {
+    const deleteUrl = "http://localhost:8090/story?id=" + storyId;
+    fetch(deleteUrl, { method: "DELETE" })
+      .then((response) => response.json())
+      .then((stories) => {
+        setStroies(stories);
+      });
+  };
+
   return (
     <div className="items-center justify-center min-h-full px-4 py-12 mx-auto h-3/4 sm:px-6 lg:px-8 max-w-7xl">
       <div className="flex justify-end px-6 space-x-2 ">
@@ -54,15 +63,29 @@ const StorySub = () => {
         <div className="flex flex-col text-center">
           {stories &&
             stories.map((story) => (
-              <button
-                key={story.storyId}
-                onClick={() => {
-                  router.push("/Story/StoryShow");
-                  setStory(story);
-                }}
+              <div
+                className="flex justify-center space-x-10"
+                key={story.storyListId}
               >
-                {story.storyTitle}
-              </button>
+                <button
+                  key={story.storyId}
+                  onClick={() => {
+                    router.push("/Story/StoryShow");
+                    setStory(story);
+                  }}
+                >
+                  {story.storyTitle}
+                </button>
+                <button
+                  key={story.storyId}
+                  onClick={() => deleteHandler(story.storyId)}
+                >
+                  <XMarkIcon
+                    className="h-5 px-1 text-gray-300 hover:text-gray-400"
+                    // onClick={}
+                  />
+                </button>
+              </div>
             ))}
         </div>
 
