@@ -31,7 +31,7 @@ const SignIn = () => {
         event.preventDefault();
 
         const formValue = { userId, password };
-        console.log(formValue);
+        // console.log(formValue);
 
         const options = {
             method: 'POST',
@@ -48,7 +48,7 @@ const SignIn = () => {
                 console.log(data);
                 if(data.userId != '') {
                     setAuth({userId: data.userId});
-                    // sessionStorage.setItem('userId', data.userId);
+                    sessionStorage.setItem('userId', userId);
                     router.push('../Main/Main');
                 }
                 else {

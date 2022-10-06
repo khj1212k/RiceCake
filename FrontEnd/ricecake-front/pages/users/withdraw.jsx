@@ -1,6 +1,6 @@
 import React, { Fragment, useRef, useState } from 'react'
 import { Dialog, Transition } from "@headlessui/react";
-import { CheckCircleIcon, ExclamationTriangleIcon, FaceFrownIcon, HandRaisedIcon } from '@heroicons/react/24/outline'
+import { ExclamationTriangleIcon, HandRaisedIcon } from '@heroicons/react/24/outline'
 import { useRouter } from 'next/router';
 
 const WithDraw = () => {
@@ -67,6 +67,7 @@ const WithDraw = () => {
             .then(data => {
                 if (data.userId != '') {
                     router.push('../Main/Main');
+                    sessionStorage.removeItem('userId');
                 }
             })
             .catch(error => {
