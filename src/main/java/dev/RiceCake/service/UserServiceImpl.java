@@ -5,6 +5,8 @@ import dev.RiceCake.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -19,6 +21,12 @@ public class UserServiceImpl implements UserService {
         //System.out.println(user.isPresent());
         return (user.isPresent()) ? user.get() : null;
     }
+
+    @Override
+    public List<User> findUserByEmail(String email) {
+        return (userRepository.findByEmail(email) != null) ? userRepository.findByEmail(email) : new ArrayList<>();
+    }
+
     @Override
     public User loginUser(User.Request request) {
         User user = findUserById(request.getUserId());
@@ -42,19 +50,20 @@ public class UserServiceImpl implements UserService {
 
         if(user == null) return null;
 
-        user.setName(request.getName());
-        user.setEmail(request.getEmail());
-        user.setPassword(request.getPassword());
+        if(request.getName() != null) user.setName(request.getName());
+        System.out.println(user.getName());
+        System.out.println(request.getName());
+        if(request.getPassword() != null) user.setPassword(request.getPassword());
 
         return userRepository.save(user);
     }
 
     @Override
-    public User deleteUser(String id) {
-        User user = findUserById(id);
+    public User deleteUser(User.Request request) {
+        User user = findUserById(request.getUserId());
         if(user == null) return null;
 
-        userRepository.deleteById(id);
+        userRepository.deleteById(request.getUserId());
         return user;
     }
 }
