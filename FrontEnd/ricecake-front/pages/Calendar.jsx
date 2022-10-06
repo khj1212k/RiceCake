@@ -10,11 +10,12 @@ function Calendars() {
   const [date, setDate] = useAtom(dateAtom);
 
   setDate(moment(value).format("YYYY-MM-DD"))
-
+ 
+  
 
   const onDateChange = () => {
     // setDate(newDate);
-    // console.log(newDate);
+    console.log(newDate);
     onChange;
     setDate(moment(value).format("YYYY-MM-DD"));
   }

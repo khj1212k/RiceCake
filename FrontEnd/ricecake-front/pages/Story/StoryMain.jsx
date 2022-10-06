@@ -113,6 +113,7 @@ const StoryMain = () => {
                   key={story.storyListId}
                 >
                   <button
+                    className="text-lg hover:text-gray-400"
                     key={story.storyListId}
                     onClick={() => {
                       router.push("/Story/StorySub");

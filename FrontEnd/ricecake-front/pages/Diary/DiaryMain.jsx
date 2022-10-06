@@ -1,6 +1,6 @@
 import Link from "next/link";
-import React, { Fragment, useEffect, useRef, useState } from "react";
 import Calendars from "../Calendar";
+import React, { Fragment, useEffect, useRef, useState } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { useRouter } from "next/router";
 import { useAtom } from "jotai";
@@ -19,40 +19,42 @@ const DiaryMain = () => {
   const router = useRouter();
 
   const [diaryTitle, setDiaryTitle] = useState("");
-  const [diaryContent, setDiaryContent] = useState("");
+  const [diaryContents, setDiaryContents] = useState("");
   const [emotion, setEmotion] = useState("");
   const [loginUser, setAuth] = useAtom(authAtom);
   const [date, setDate] = useAtom(dateAtom);
+  const [diaries, setDiaries] = useState();
+
 
   const diaryTitleHandler = (event) => {
     setDiaryTitle(event.target.value);
   };
 
   const diaryContentsHandler = (event) => {
-    setDiaryContent(event.target.value);
+    setDiaryContents(event.target.value);
   };
 
-  const createEmotionHandler = (event) => {};
+  const createEmotionHandler = (event) => { };
 
-  const createDiaryTitleHandler = (event) => {};
+  const createDiaryTitleHandler = (event) => { };
 
-  const createDiaryContentHandelr = (event) => {};
+  const createDiaryContentHandelr = (event) => { };
 
   useEffect(() => {
-    async function getDiaryTitle() {
+    async function getDiary() {
       const userId = loginUser.userId;
-      console.log(date);
-      const getUrl =
-        "http://localhost:8090/diaries/" + date.data + "/" + userId;
-      console.log(getUrl);
+      const getUrl = "http://localhost:8090/diaries/2022-10-06/" + userId;
+      // console.log(getUrl);
       await fetch(getUrl)
         .then((response) => response.json())
-        .then((diaryTitle) => {
-          setDiaryTitle(diaryTitle);
-          setDiaryContent(diaryContent);
+        .then((diary) => {
+          setDiaries(diary);
+          console.log(diary);
+          // setDiaryContent(diaryContent);
+          router.push("/Diary/DiaryMain");
         });
     }
-    getDiaryTitle();
+    getDiary();
   }, []);
 
   return (
@@ -85,7 +87,9 @@ const DiaryMain = () => {
                 placeholder="Title"
                 onChange={diaryTitleHandler}
                 className="w-full row-span-6 pt-10 overflow-hidden text-4xl text-center text-gray-900 bg-transparent outline-none resize-none"
-              />
+              >
+                {diaries && diaries.diaryTitle}
+              </textarea>
             </div>
             <div className="flex justify-center">
               <div className="w-full h-px bg-gray-400 mb-7"></div>
@@ -96,7 +100,11 @@ const DiaryMain = () => {
                 onChange={diaryContentsHandler}
                 rows="12"
                 className="scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-gray-300 h-auto scrollbar-thumb-rounded-full scrollbar-track-rounded-full overflow-y-scroll block p-2.5 w-full text-sm text-gray-900 rounded-lg bg-transparent resize-none"
-              />
+              >
+                {/* {diaries && diaries.diaryContents} */}
+                {console.log(diaries)}
+              </textarea>
+
             </div>
             <div className="flex justify-center">
               <button

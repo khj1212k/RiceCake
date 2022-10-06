@@ -56,7 +56,7 @@ const StorySub = () => {
         <div className="flex justify-center p-2 mt-2 text-3xl font-bold leading-8 text-gray-900 sm:text-5xl">
           {sendTitle.data.storyListTitle}
         </div>
-        <div className="flex justify-center p-2 mt-2 text-3xl leading-8 text-gray-600 sm:text-xl">
+        <div className="flex justify-center p-2 mt-2 text-3xl leading-8 text-gray-600 sm:text-sm">
           {sendTitle.data.storyListSubTitle}
         </div>
         <div class="mt-3 mb-7 mx-auto h-px bg-gray-400 w-2/3"></div>
@@ -64,10 +64,11 @@ const StorySub = () => {
           {stories &&
             stories.map((story) => (
               <div
-                className="flex justify-center space-x-10"
+                className="flex justify-center space-x-10 "
                 key={story.storyListId}
               >
                 <button
+                  className="text-lg hover:text-gray-400"
                   key={story.storyId}
                   onClick={() => {
                     router.push("/Story/StoryShow");
