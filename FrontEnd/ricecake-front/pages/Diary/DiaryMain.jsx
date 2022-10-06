@@ -26,6 +26,7 @@ const DiaryMain = () => {
   const [diaries, setDiaries] = useState();
   const [diary, setDiary] = useState();
   const [canDelete, setCanDelete] = useState();
+  const tmi = "today's mood : ";
 
   const diaryTitleHandler = (event) => {
     setDiaryTitle(event.target.value);
@@ -43,6 +44,7 @@ const DiaryMain = () => {
         setDiaries(diaries);
         setDiaryTitle("");
         setDiaryContents("");
+        setEmotion("");
       }) // 모든 StoryList 데이터를 가져와서 배열에 담아줘야하는건가
       .catch((error) => console.log("fail", error));
     setCanDelete(false);
@@ -85,6 +87,7 @@ const DiaryMain = () => {
       .then((response) => response.json())
       .then((diary) => {
         setDiary(diary);
+        setEmotion(diary.emotion);
       }) // 모든 StoryList 데이터를 가져와서 배열에 담아줘야하는건가
       .catch((error) => console.log("fail", error));
     router.push("/Diary/DiaryMain");
@@ -169,9 +172,7 @@ const DiaryMain = () => {
             </div>
 
             <div className="p-2 text-sm ">
-              <span className="text-base font-bold text-gray-700 ">
-                today's mood :
-              </span>
+              <span className="text-base font-bold text-gray-700 ">{tmi}</span>
               {emotion}
             </div>
 

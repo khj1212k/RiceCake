@@ -8,7 +8,7 @@ public interface UserService {
     User findUserById(String id);
     List<User> findUserByEmail(String email);
     User loginUser(User.Request request);
-    User createUser(User newUser);
+    User createUser(User.Request request);
     User updateUser(User.Request request);
     User deleteUser(User.Request request);
 }

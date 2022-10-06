@@ -53,7 +53,7 @@ const StoryShow = () => {
         console.log(story);
       }) // 모든 StoryList 데이터를 가져와서 배열에 담아줘야하는건가
       .catch((error) => console.log("fail", error));
-    router.push("/Story/StoryShow");
+    router.push("/Story/StorySub");
   };
 
   return (
@@ -82,7 +82,7 @@ const StoryShow = () => {
         <div className="flex justify-center text-gray-600 mt-7 sm:text-xl">
           <textarea
             placeholder=" Sub Story1"
-            className="text-center bg-transparent outline-none resize-none"
+            className="text-center bg-transparent outline-none resize-none scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-gray-300 h-auto scrollbar-thumb-rounded-full scrollbar-track-rounded-full overflow-y-scroll block p-2.5 w-full text-sm text-gray-900 rounded-lg"
             onChange={storyTitleHandler}
             // value={}
           >
@@ -90,10 +90,11 @@ const StoryShow = () => {
           </textarea>
         </div>
         <div class="mt-3 mb-7 mx-auto h-px bg-gray-400 w-2/3"></div>
-        <div className="flex justify-center">
+        <div className="flex justify-center ">
           <textarea
             placeholder="스토리 내용"
-            className="row-span-6 pt-5 overflow-hidden text-center bg-transparent outline-none resize-none text-1xl"
+            rows="12"
+            className=" w-2/3 scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-gray-300 h-auto scrollbar-thumb-rounded-full scrollbar-track-rounded-full overflow-y-scroll block p-2.5 w-full text-sm text-gray-900 rounded-lg bg-transparent resize-none"
             onChange={storyContentsHandler}
           >
             {story.storyContents}

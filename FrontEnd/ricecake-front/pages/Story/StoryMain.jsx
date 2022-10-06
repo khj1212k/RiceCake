@@ -112,34 +112,31 @@ const StoryMain = () => {
           <div class="mt-3 mb-7 mx-auto h-px bg-gray-400 w-2/3"></div>
           <div className="flex flex-col text-center">
             {storyLists &&
-              storyLists.map((story) => {
+              storyLists.map((story, index) => {
                 return (
-                  <div
-                    className="flex justify-center space-x-10"
-                    key={story.storyListId}
-                  >
+                  <div className="flex justify-center space-x-10" key={index}>
                     <button
                       className="text-lg hover:text-gray-400"
-                      key={story.storyListId}
+                      key={index + index}
                       onClick={() => {
                         router.push("/Story/StorySub");
                         sendDataToStorySub(story);
                       }}
-
                     >
                       {story.storyListTitle}
                     </button>
                     <button
-                      key={story.storyListId}
+                      key={index + index + index}
                       onClick={() => deleteHandler(story.storyListId)}
                     >
                       <XMarkIcon
                         className="h-5 px-1 text-gray-300 hover:text-gray-400"
-                      // onClick={}
+                        // onClick={}
                       />
                     </button>
                   </div>
-              )})}
+                );
+              })}
             <div>
               {/* {storyLists &&
                 storyLists.map((story) => (

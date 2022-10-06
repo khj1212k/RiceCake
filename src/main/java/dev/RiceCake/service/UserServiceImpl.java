@@ -38,10 +38,12 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User createUser(User user) {
-        User newUser = findUserById(user.getUserId());
+    public User createUser(User.Request request) {
+        User newUser = findUserById(request.getUserId());
 
-        return newUser == null ? userRepository.save(user) : null;
+        if(newUser != null) return null;
+
+        return userRepository.save(User.Request.toEntity(request));
     }
 
     @Override
