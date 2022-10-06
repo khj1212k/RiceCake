@@ -7,10 +7,19 @@ import dateAtom from "../stores/dateAtom";
 function Calendars() {
   const [value, onChange] = useState(new Date());
   const [date, setDate] = useAtom(dateAtom);
-
+  // const [diary, setDiary] = useState();
+  // const [marks, diaryDate] = useState(diary.date);
+  
+  const marks=[
+    "2022-10-15",
+    "2022-10-17",
+  ];
+  
   useEffect(() => {
     setDate(moment(value).format("YYYY-MM-DD"));
   }, [value]);
+  
+  
 
   return (
     <div>
@@ -19,8 +28,15 @@ function Calendars() {
         onChange={onChange}
         value={value}
         locale="en"
+        calendarType="US"
+        tileClassName={({ date, view }) => {
+          if (marks.find((x) => x === moment(date).format("YYYY-MM-DD"))) {
+            return "dot";
+          }
+        }
+        }
       />
-      <div className="mt-4 text-gray-500">
+      <div className="mt-4 text-xs text-gray-500">
         {moment(value).format("YYYY-MM-DD")}
       </div>
     </div>

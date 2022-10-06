@@ -20,7 +20,7 @@ const DiaryMain = () => {
 
   const [diaryTitle, setDiaryTitle] = useState("");
   const [diaryContents, setDiaryContents] = useState("");
-  // const [emotion, setEmotion] = useState("");
+  const [emotion, setEmotion] = useState("");
   const [loginUser, setAuth] = useAtom(authAtom);
   const [date, setDate] = useAtom(dateAtom);
   const [diaries, setDiaries] = useState();
@@ -92,11 +92,13 @@ const DiaryMain = () => {
           setDiary(diary);
           setDiaryTitle(diary.diaryTitle);
           setDiaryContents(diary.diaryContents);
+          setEmotion(diary.emotion);
         })
         .catch(() => {
+          setDiary(null);
           setDiaryTitle("");
           setDiaryContents("");
-          setDiary(null);
+          setEmotion("");
         });
     }
     date && getDiary();
@@ -145,8 +147,18 @@ const DiaryMain = () => {
                 rows="12"
                 className="scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-gray-300 h-auto scrollbar-thumb-rounded-full scrollbar-track-rounded-full overflow-y-scroll block p-2.5 w-full text-sm text-gray-900 rounded-lg bg-transparent resize-none"
                 value={diaryContents}
-              ></textarea>
+              >
+              </textarea>
             </div>
+
+            <div className="text-sm  p-2 ">
+              <span className="text-base font-bold text-gray-700 ">
+                today's mood :
+              </span>
+              {emotion}
+            </div>
+
+
             <div className="flex justify-center">
               <button type="button">
                 <XMarkIcon className="h-5 px-1 text-gray-800 hover:text-gray-400" />

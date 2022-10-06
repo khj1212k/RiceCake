@@ -10,7 +10,7 @@ const ModifyProfile = () => {
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
   const [isNameButtonClick, setIsNameButtonClick] = useState(true);
-  const [userId, setUserId] = useState('adad');
+  const [userId, setUserId] = useState(sessionStorage.getItem('userId'));
 
   const [failModalIsOpen, setFailModalIsOpen] = useState(false);
   const [successModalIsOpen, setSuccessModalIsOpen] = useState(false);
@@ -132,10 +132,11 @@ const ModifyProfile = () => {
           </div>
           <div className="flex items-center justify-end py-1">
             <div className="text-md">
-              <a onClick={nameChangeHanlder}
+              <button onClick={nameChangeHanlder}
+              type="button"
                 className="mr-10 font-bold border px-2 py-1
                               border-transparent bg-black text-white rounded-md
-                              hover:text-black hover:bg-white">CHANGE</a>
+                              hover:text-black hover:bg-white">CHANGE</button>
             </div>
           </div>
         </div>
@@ -160,10 +161,10 @@ const ModifyProfile = () => {
           </div>
           <div className="flex items-center justify-end py-1">
             <div className="text-md">
-              <a onClick={passwordChangeHandler}
+              <button onClick={passwordChangeHandler}
                 className="mr-10 font-bold border px-2 py-1
                               border-transparent bg-black text-white rounded-md
-                              hover:text-black hover:bg-white">CHANGE</a>
+                              hover:text-black hover:bg-white">CHANGE</button>
             </div>
           </div>
         </div>
