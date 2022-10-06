@@ -1,13 +1,13 @@
-import Head from 'next/head'
-import Image from 'next/image'
 import styles from '../styles/Home.module.css'
-import Starts from '../components/Layout/Starts'
-import Header from '../components/Layout/Header'
+import React from 'react'
+import Starts from './Main/Starts'
+
 
 export default function Home() {
+  const [darkToggle, setDarkToggle] = React.useState(false)
+
   return (
-    <div className={styles.container}>
-      <Header/>
+    <div className='h-full'>
       <Starts/>
     </div>
   )

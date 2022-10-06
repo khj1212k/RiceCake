@@ -10,6 +10,6 @@ public interface DiaryService {
 
     Diary findDiaryByDate(Date diaryDate, String userId);
     Diary saveDiary(Diary newDiary);
-    List<Diary> updateDiary(Diary.Request request);
+    Diary updateDiary(Diary.Request request);
     List<Diary> deleteDiary(int diaryId);
 }

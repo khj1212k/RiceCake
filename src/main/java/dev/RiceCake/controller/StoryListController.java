@@ -12,6 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("storyList")
+@CrossOrigin(origins="*")
 public class StoryListController {
 
 @Autowired
@@ -34,19 +35,27 @@ private UserService userService;
 
     //TODO 스토리 리스트 추가
     @PostMapping("create")
-    public void createStoryList(@RequestBody @Valid StoryList.Request request){
+    public List<StoryList.Response> createStoryList(@RequestBody @Valid StoryList.Request request){
         StoryList storyList = StoryList.Request.toEntity(request);
         User foundUser = userService.findUserById(request.getUser().getUserId());
 
         storyList.setUser(foundUser);
         storyListService.saveStoryList(storyList);
 //        System.out.println(storyList); dto 를 만들어서 순환참조를 없앤다.(StoryList,User) toString울 고쳐서 해결
+        List<StoryList> storyLists = storyListService.getStoryList(request.getUser().getUserId());
+        return StoryList.Response.toResponseList(storyLists);
     }
 
     //TODO 스토리 리스트 삭제 (안에 있는 스토리도 다 삭제)
     @DeleteMapping
-    public void deleteStoryList(@RequestParam("id") int id){
+    public  List<StoryList.Response> deleteStoryList(@RequestParam("id") int id){
+        // 스토리리스트 ID를 받으면 거기에있는 UserId를 가져와서 일단 저장하고
+        System.out.println(id);
+        String userId = storyListService.findById(id).getUser().getUserId();
+        System.out.println(userId);
         storyListService.deleteStoryList(id);
+        List<StoryList> storyLists = storyListService.getStoryList(userId);
+        return StoryList.Response.toResponseList(storyLists);
     }
 
 //    //TODO 스토리 리스트 타이틀/서브타이틀 수정

@@ -11,6 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("story")
+@CrossOrigin(origins="*")
 public class StoryController {
 
     @Autowired
@@ -35,13 +36,19 @@ public class StoryController {
 
     //TODO 스토리 정보 수정 (최종 수정일 날짜 들어가고)
     @PutMapping
-    public void updateStroy(@RequestBody Story.Request request){
+    public Story.Response updateStroy(@RequestBody Story.Request request){
         storyService.update(request);
+        Story story = storyService.findStoryById(request.getStoryId());
+        return Story.Response.toResponse(story);
     }
 
     //TODO 스토리 정보 삭제
     @DeleteMapping
-    public void deleteStory(@RequestParam int id){
+    public List<Story.Response> deleteStory(@RequestParam int id){
+        int storyListId = storyService.findStoryById(id).getStoryList().getStoryListId();
         storyService.deleteStory(id);
+        StoryList storyList  = storyListService.findById(storyListId);
+        List<Story> Stroies =storyList.getStroies();
+        return Story.Response.toResponseList(Stroies);
     }
 }
