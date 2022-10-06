@@ -1,4 +1,4 @@
-import React, { useState, useRef, Fragment } from 'react'
+import React, { useState, useRef, Fragment, useEffect } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router';
 import { useAtom } from 'jotai';
@@ -11,7 +11,6 @@ import { ExclamationTriangleIcon } from '@heroicons/react/24/outline'
 const SignIn = () => {
     const [userId, setUserId] = useState('');
     const [password, setPassword] = useState('');
-    const [isLogin, setIsLogin] = useState(false);
 
     const [failModalIsOpen, setFailModalIsOpen] = useState(false);
 
@@ -20,6 +19,9 @@ const SignIn = () => {
     const router = useRouter();
 
     const cancelButtonRef = useRef(null);
+
+    useEffect(() => {}, [userId, password]);
+    useEffect(() => {console.log(auth);}, [auth])
 
     const idInputHandler = (event) => setUserId(event.target.value); //입력된 value 값을 id state에 보관
     const passwordInputHandler = (event) => setPassword(event.target.value);
@@ -39,29 +41,23 @@ const SignIn = () => {
             body: JSON.stringify(formValue),
         };
 
-        // console.log(options);
-
         fetch('http://localhost:8090/users/auth/sign-in', options)
-            .then(response => {
-                if(response.status === 200) {
-                    setIsLogin(true);
-                    return response.json();
+            // .then(response => response.json())
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                if(data.userId != '') {
+                    setAuth({userId: data.userId});
+                    router.push('../Main/Main');
                 }
-                else if(response.status === 204) {
-                    setIsLogin(false);
-                    return;
+                else {
+                    console.log(data);
+                    setFailModalIsOpen(true);
                 }
             })
-            .catch(error => console.error('아이디 또는 비밀번호를 확인하세요.', error));
-        
-        if(isLogin) {
-            setAuth({userId: userId});
-            console.log(auth);
-            router.push('/Main/Main');
-        }
-        else {
-            setFailModalIsOpen(true);
-        }
+            .catch(error => {
+                console.log(error + "아이디 비밀번호 오류");
+            });
     };
 
     return <>

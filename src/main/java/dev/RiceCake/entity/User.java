@@ -87,8 +87,31 @@ public class User {
                     .email(user.getEmail())
                     .storyLists(user.getStoryLists())
                     .diaries(user.getDiaries())
-                    .build() : null;
+                    .build() : Response.builder()
+                    .userId("")
+                    .build();
         }
+        public static List<User.Response> toResponseList(final List<User> users) {
+            List<User.Response> list = new ArrayList<>();
+            if(!users.isEmpty())
+                for (User user : users) list.add(toResponse(user));
 
+            return list;
+        }
+    }
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @Getter @Setter
+    @Builder @ToString
+    public static class passwordResponse {
+        private String userId;
+        private String password;
+
+        public static User.passwordResponse toResponse(final User user) {
+            return (user != null) ? passwordResponse.builder()
+                    .userId(user.getUserId())
+                    .password(user.getPassword())
+                    .build() : passwordResponse.builder().userId("").build();
+        }
     }
 }

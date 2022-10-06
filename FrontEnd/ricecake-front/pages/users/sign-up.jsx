@@ -29,17 +29,19 @@ const SignUp = () => {
         };
         // console.log(options);
         fetch('http://localhost:8090/users/find', options)
-            .then(response => { response.status === 200 ? setIsDuplicate(true) : setIsDuplicate(false) })
+            .then(response => response.json())
+            .then(data => {
+                data.userId == '' ? setIsDuplicate(false) : setIsDuplicate(true);
+            })
             .catch(error => console.error('실패', error));
-
-        // console.log(isDuplicate);
     }, [userId]);
 
     useEffect(() => {
         if (email === '') setIsValidate(true);
+        if (validateEmail(email)) setIsValidate(true);
     }, [email])
 
-    useEffect(() => { }, [password, name])
+    useEffect(() => {;}, [password, name])
 
     const validateEmail = (email) => {
         return email.match(
@@ -53,7 +55,6 @@ const SignUp = () => {
     const emailInputHandler = (event) => {
         setIsValidate(false);
         setEmail(event.target.value);
-        if (validateEmail(email)) setIsValidate(true);
     }
 
     const checkBlank = () => {
@@ -74,6 +75,8 @@ const SignUp = () => {
 
     const signUpButtonHandler = (event) => {
         event.preventDefault();
+        if(!isValidate) return;
+        if(isDuplicate) return;
 
         if (!checkBlank()) return;
 
@@ -98,10 +101,11 @@ const SignUp = () => {
     };
 
     const idTextColor = isDuplicate ? 'font-bold text-red-700 line-through' : 'text-grey-900';
+    // const autoFillTextClor = isDuplicate ? 'autofill:text-red-700 autofill:line-through' : 'autofill:text-grey-900'; 
     const emailTextColor = isValidate ? 'text-grey-900' : 'font-bold text-red-700 line-through';
 
     return <>
-        <div className="flex h-3/4 items-center justify-center sm:px-6 lg:px-8">
+        <div className="flex h-3/4 items-center justify-center sm:px-6 lg:px-8 ">
             <div className="w-1/3 max-w-md space-y-16">
                 <div>
                     <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">JOIN</h2>

@@ -5,7 +5,7 @@ import emailCodeAtom from '../../stores/emailCodeAtom';
 import authAtom from '../../stores/authAtom';
 import { useRouter } from 'next/router';
 import { Dialog, Transition } from "@headlessui/react";
-import { CheckCircleIcon, ExclamationTriangleIcon } from '@heroicons/react/24/outline'
+import { CheckCircleIcon, EnvelopeIcon, ExclamationTriangleIcon } from '@heroicons/react/24/outline'
 
 const EmailConfirm = () => {
     const [code, setCode] = useAtom(emailCodeAtom);
@@ -50,25 +50,28 @@ const EmailConfirm = () => {
                 .then(response => response.json())
                 .catch(error => console.error('실패', error));
 
-            setAuth({ userId: null, password: null, name: null, email: null });
-            setCode({ code: null });
-
             setSuccessModalIsOpen(true);
-            
+
         }
         else {
             setFailModalIsOpen(true);
         }
+
+        setAuth({ userId: null, password: null, name: null, email: null });
+        setCode({ code: null });
     }
 
 
     return <>
         <div className="flex h-3/4 items-center justify-center sm:px-6 lg:px-8" s>
-            <div className="w-1/3 max-w-md space-y-16">
+            <div className="w-1/3 max-w-md space-y-12">
                 <div>
-                    <h2 className="mt-6 text-center text-3xl font-bold tracking-tight text-gray-900">JOIN</h2>
+                    <h2 className="mt-4 text-center text-3xl font-bold tracking-tight text-gray-900">JOIN</h2>
                 </div>
                 <div className="flex-col items-center justify-center">
+                    <div className="flex items-center justify-center mb-2">
+                        <EnvelopeIcon className='h-12 w-12' />
+                    </div>
                     <div className="flex items-center justify-center font-semibold">귀하의 이메일로 인증번호를 전송하였습니다.</div>
                     <div className='flex items-center justify-center mt-4'>
                         <div className=' w-4/5'>
@@ -138,7 +141,7 @@ const EmailConfirm = () => {
                                             </Dialog.Title>
                                             <div className="mt-2">
                                                 <p className="text-base text-gray-500">
-                                                    이메일에 있는 인증번호를 다시 한번 확인하여 주세요. 
+                                                    이메일에 있는 인증번호를 다시 한번 확인하여 주세요.
                                                 </p>
                                             </div>
                                         </div>
@@ -161,7 +164,7 @@ const EmailConfirm = () => {
         </Transition.Root>
 
         <Transition.Root show={successModalIsOpen} as={Fragment}>
-            <Dialog as="div" className="relative z-10" initialFocus={successButtonRef} onClose={() => {}}>
+            <Dialog as="div" className="relative z-10" initialFocus={successButtonRef} onClose={() => { }}>
                 <Transition.Child
                     as={Fragment}
                     enter="ease-out duration-300"
