@@ -48,6 +48,7 @@ const SignIn = () => {
                 console.log(data);
                 if(data.userId != '') {
                     setAuth({userId: data.userId});
+                    sessionStorage.setItem('userId', userId);
                     router.push('../Main/Main');
                 }
                 else {

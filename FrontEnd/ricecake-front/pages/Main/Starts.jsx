@@ -1,7 +1,7 @@
 import { StarIcon } from '@heroicons/react/24/outline'
 import Link from 'next/link'
 
-export default function Example() {
+export default function Start() {
   return (
     <div className="flex h-auto bg-transparent py-12">
       <div className="mx-auto max-w-7xl flex items-center justify-center px-4 sm:px-6">

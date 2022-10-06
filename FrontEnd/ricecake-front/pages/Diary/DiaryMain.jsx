@@ -41,21 +41,23 @@ const DiaryMain = () => {
   const createDiaryContentHandelr = (event) => { };
 
   useEffect(() => {
-    async function getDiary() {
-      const userId = loginUser.userId;
-      const getUrl = "http://localhost:8090/diaries/2022-10-06/" + userId;
-      // console.log(getUrl);
-      await fetch(getUrl)
-        .then((response) => response.json())
-        .then((diary) => {
-          setDiaries(diary);
-          console.log(diary);
-          // setDiaryContent(diaryContent);
-          router.push("/Diary/DiaryMain");
-        });
-    }
-    getDiary();
-  }, []);
+    // async function getDiary() {
+    //   const userId = loginUser.userId;
+    //   const getUrl = "http://localhost:8090/diaries/2022-10-06/" + userId;
+    //   // console.log(getUrl);
+    //   await fetch(getUrl)
+    //     .then((response) => response.json())
+    //     .then((diary) => {
+    //       setDiaries(diary);
+    //       console.log(diary);
+    //       // setDiaryContent(diaryContent);
+    //       // router.push("/Diary/DiaryMain");
+    //     });
+    // }
+    console.log(date.data);
+    console.log('date change');
+    // getDiary();
+  }, [date.data]);
 
   return (
     <>
@@ -84,11 +86,13 @@ const DiaryMain = () => {
           <div id="text Editer Container" className="">
             <div className="flex justify-center w-96 ">
               <textarea
-                placeholder="Title"
+                // placeholder={`날짜 : ${date.data}`}
+                value={date.date}
                 onChange={diaryTitleHandler}
                 className="w-full row-span-6 pt-10 overflow-hidden text-4xl text-center text-gray-900 bg-transparent outline-none resize-none"
               >
-                {diaries && diaries.diaryTitle}
+                {/* {date.data} */}
+                {/* {diaries && diaries.diaryTitle} */}
               </textarea>
             </div>
             <div className="flex justify-center">
@@ -102,7 +106,8 @@ const DiaryMain = () => {
                 className="scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-gray-300 h-auto scrollbar-thumb-rounded-full scrollbar-track-rounded-full overflow-y-scroll block p-2.5 w-full text-sm text-gray-900 rounded-lg bg-transparent resize-none"
               >
                 {/* {diaries && diaries.diaryContents} */}
-                {console.log(diaries)}
+                {/* {console.log(diaries)} */}
+                
               </textarea>
 
             </div>

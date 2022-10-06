@@ -41,7 +41,7 @@ const SignUp = () => {
         if (validateEmail(email)) setIsValidate(true);
     }, [email])
 
-    useEffect(() => {;}, [password, name])
+    useEffect(() => { ; }, [password, name])
 
     const validateEmail = (email) => {
         return email.match(
@@ -75,8 +75,8 @@ const SignUp = () => {
 
     const signUpButtonHandler = (event) => {
         event.preventDefault();
-        if(!isValidate) return;
-        if(isDuplicate) return;
+        if (!isValidate) return;
+        if (isDuplicate) return;
 
         if (!checkBlank()) return;
 
@@ -149,15 +149,7 @@ const SignUp = () => {
                         </div>
                     </div>
                 </div>
-                <div className="flex items-center justify-between py-1">
-                    <div className="text-md">
-                        <Link href="/users/sign-in">
-                            <a className="ml-10 font-bold border px-3 py-2
-                                border-transparent bg-black text-white rounded-md
-                                hover:text-black hover:bg-white" >CANCEL</a>
-                        </Link>
-                    </div>
-
+                <div className="flex items-center justify-end py-1">
                     <div className="text-md" onClick={signUpButtonHandler}>
                         <a className="mr-10 font-bold border px-3 py-2
                                 border-transparent bg-black text-white rounded-md

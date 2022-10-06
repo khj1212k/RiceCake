@@ -1,28 +1,42 @@
-import React, { Fragment } from 'react'
+import React, { Fragment, useEffect } from 'react'
 import { Menu, Transition } from '@headlessui/react'
 import { Bars3Icon, StarIcon, ArrowRightOnRectangleIcon, } from '@heroicons/react/24/outline'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
+import { useAtom } from 'jotai'
+import authAtom from '../../stores/authAtom'
 
 function classNames(...classes) {
 
   return classes.filter(Boolean).join(' ')
 }
 
-export default function Example() {
+export default function Header() {
+  const router = useRouter();
+  const userId = typeof window !== 'undefined' ? sessionStorage.getItem('userId') : null;
+  const [auth, setAuth] = useAtom(authAtom);
+
+  const logoutHandler = () => {
+    if(userId != null) sessionStorage.removeItem('userId');
+    console.log('logout');
+
+    setAuth({ userId: null, password: null, name: null, email: null });
+
+    router.push('/Main/Starts');
+  }
+
   return (
     <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
       <div className="relative flex h-16 items-center justify-between">
-        <div className="absolute inset-y-0 left-0 flex items-center sm:hidden">
-        </div>
+        <div className="absolute inset-y-0 left-0 flex items-center sm:hidden"></div>
         <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
-          <Link href="/Main/Main">
-            <a className="flex flex-shrink-0 items-center ">
+          <div className="flex flex-shrink-0 items-center">
+            <Link href={userId != null ? '/Main/Main' : '/Main/Starts'}>
               RiceCake
-              <StarIcon
-                className="block h-5 w-auto px-1"
-              />
-            </a>
-          </Link>
+            </Link>
+            <StarIcon className="block h-5 w-auto px-1 hover:cursor-pointer" 
+              onClick={() => {userId != null ? router.push('/Main/Main') : router.push('/Main/Starts')}} />
+          </div>
           <div className="hidden sm:ml-6 sm:block">
             <div className="flex space-x-4">
             </div>
@@ -60,43 +74,55 @@ export default function Example() {
               <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
                 <Menu.Item>
                   {({ active }) => (
-                    <button
-                      id='theme-toggle'
-                      type='button'
-                      className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
-                    >
-                      Light/Dark
-                    </button>
+                    <div>
+                      <button
+                        id='theme-toggle'
+                        type='button'
+                        className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
+                      >
+                        Light/Dark
+                      </button>
+                    </div>
                   )}
                 </Menu.Item>
                 <Menu.Item>
                   {({ active }) => (
-                    <a
-                      href="/Story/StoryMain"
-                      className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
-                    >
-                      My Stories
-                    </a>
+                    <div className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}>
+                      <Link href={userId != null ? '/Story/StoryMain' : '/users/sign-in'}>
+                        My Stories</Link>
+                    </div>
                   )}
                 </Menu.Item>
                 <Menu.Item>
                   {({ active }) => (
-                    <a
-                      href="/Diary/DiaryMain"
-                      className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
-                    >
-                      My Diaries
-                    </a>
+                    <div className={classNames(active ? 'bg-gray-100' : '', ' block px-4 py-2 text-sm text-gray-700')}>
+                      <Link href={userId != null ? '/Diary/DiaryMain' : '/users/sign-in'}>
+                        My Diaries</Link>
+                    </div>
                   )}
                 </Menu.Item>
                 <Menu.Item>
                   {({ active }) => (
-                    <a
-                      href="/Main/Main"
-                      className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
-                    >
-                      Profie
-                    </a>
+                    <div className={classNames(active ? 'bg-gray-100' : '', ' block px-4 py-2 text-sm text-gray-700')}>
+                      <Link href={userId != null ? '/users/modify-profile' : '/users/sign-in'}>
+                        Profile</Link>
+                    </div>
+                  )}
+                </Menu.Item>
+                <Menu.Item>
+                  {({ active }) => (
+                    <div className={classNames(active ? 'bg-gray-100' : '', ' block px-4 py-2 text-sm text-gray-700')}>
+                      <Link href={userId != null ? '/users/withdraw' : '/users/sign-in'}>
+                        Withraw</Link>
+                    </div>
+                  )}
+                </Menu.Item>
+                <Menu.Item>
+                  {({ active }) => (
+                    <div className={classNames(active ? 'bg-gray-100' : '', 
+                    ' block px-4 py-2 text-sm text-gray-700 hover:cursor-pointer')} onClick={logoutHandler}>
+                        Logout
+                    </div>
                   )}
                 </Menu.Item>
               </Menu.Items>
