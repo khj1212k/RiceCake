@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, useRef, useState } from 'react'
+import React, { Fragment, useRef, useState } from 'react'
 import Link from 'next/link'
 import { useAtom } from 'jotai';
 import emailCodeAtom from '../../stores/emailCodeAtom';
@@ -28,15 +28,8 @@ const EmailConfirm = () => {
 
     const emailCodeInputHandler = (event) => setInputCode(event.target.value);
     const emailCodeCheckHandler = () => {
-        console.log('click');
-        console.log(code.code);
-        console.log(inputCode);
         if (code.code == inputCode) {
-            console.log("맞다 " + code.code);
-
             const formValue = { userId, password, name, email };
-            console.log(formValue);
-            console.log(auth);
 
             const options = {
                 method: 'POST',

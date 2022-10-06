@@ -15,14 +15,13 @@ const WithDraw = () => {
     const failButtonRef = useRef(null);
     const withdrawsButtonRef = useRef(null);
 
-    const idInputHandler = (event) => setUserId(event.target.value); //입력된 value 값을 id state에 보관
+    const idInputHandler = (event) => setUserId(event.target.value);
     const passwordInputHandler = (event) => setPassword(event.target.value);
 
     const withdrawButtonHandler = (event) => {
         event.preventDefault();
 
         const formValue = { userId, password };
-        // console.log(formValue);
 
         const options = {
             method: 'POST',
@@ -33,7 +32,6 @@ const WithDraw = () => {
         };
 
         fetch('http://localhost:8090/users/auth/sign-in', options)
-            // .then(response => response.json())
             .then(response => response.json())
             .then(data => {
                 if (data.userId != '') {
@@ -62,7 +60,6 @@ const WithDraw = () => {
         };
 
         fetch('http://localhost:8090/users', options)
-            // .then(response => response.json())
             .then(response => response.json())
             .then(data => {
                 if (data.userId != '') {

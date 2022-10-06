@@ -18,7 +18,6 @@ export default function Header() {
 
   const logoutHandler = () => {
     if(userId != null) sessionStorage.removeItem('userId');
-    console.log('logout');
 
     setAuth({ userId: null, password: null, name: null, email: null });
 
@@ -44,15 +43,12 @@ export default function Header() {
         </div>
 
         <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
-          <button href="/auth/sign-out"
-            type="button"
-            className="rounded-full bg-white p-1 text-gray-800 hover:text-gray-400 "
-          >
+          <button type="button" onClick={logoutHandler}
+            className="rounded-full bg-white p-1 text-gray-800 hover:text-gray-400 ">
             <span className="sr-only">View notifications</span>
-            <ArrowRightOnRectangleIcon className="h-6 w-6" aria-hidden="true" />
+            <ArrowRightOnRectangleIcon className="h-6 w-6" aria-hidden="true hover:cursor-pointer" />
           </button>
 
-          {/* Profile dropdown */}
           <Menu as="div" className="relative ml-3">
             <div>
               <Menu.Button className="flex rounded-full bg-white text-sm  hover:text-gray-400 ">
@@ -72,19 +68,6 @@ export default function Header() {
               leaveTo="transform opacity-0 scale-95"
             >
               <Menu.Items className="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                <Menu.Item>
-                  {({ active }) => (
-                    <div>
-                      <button
-                        id='theme-toggle'
-                        type='button'
-                        className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
-                      >
-                        Light/Dark
-                      </button>
-                    </div>
-                  )}
-                </Menu.Item>
                 <Menu.Item>
                   {({ active }) => (
                     <div className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}>
@@ -114,14 +97,6 @@ export default function Header() {
                     <div className={classNames(active ? 'bg-gray-100' : '', ' block px-4 py-2 text-sm text-gray-700')}>
                       <Link href={userId != null ? '/users/withdraw' : '/users/sign-in'}>
                         Withraw</Link>
-                    </div>
-                  )}
-                </Menu.Item>
-                <Menu.Item>
-                  {({ active }) => (
-                    <div className={classNames(active ? 'bg-gray-100' : '', 
-                    ' block px-4 py-2 text-sm text-gray-700 hover:cursor-pointer')} onClick={logoutHandler}>
-                        Logout
                     </div>
                   )}
                 </Menu.Item>

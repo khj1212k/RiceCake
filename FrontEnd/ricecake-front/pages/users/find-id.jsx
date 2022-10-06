@@ -40,7 +40,7 @@ const FindId = () => {
         );
     };
 
-    const idInputHandler = (event) => setUserId(event.target.value); //입력된 value 값을 id state에 보관
+    const idInputHandler = (event) => setUserId(event.target.value);
     const emailInputHandler = (event) => {
         setIsValidate(false);
         setEmail(event.target.value);
@@ -98,8 +98,6 @@ const FindId = () => {
             },
             body: JSON.stringify(formValue),
         };
-
-        // console.log(options);
 
         fetch('http://localhost:8090/users/find/password', options)
             .then(response => response.json())

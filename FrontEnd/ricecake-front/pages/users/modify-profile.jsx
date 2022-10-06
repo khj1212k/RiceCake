@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect, useRef, useState } from 'react'
 import { Dialog, Transition } from "@headlessui/react";
-import { CheckCircleIcon, ExclamationTriangleIcon } from '@heroicons/react/24/outline'
+import { CheckCircleIcon } from '@heroicons/react/24/outline'
 import { useRouter } from 'next/router';
 import { useAtom } from 'jotai';
 import authAtom from '../../stores/authAtom';
@@ -8,9 +8,9 @@ import authAtom from '../../stores/authAtom';
 const ModifyProfile = () => {
   const [auth, setAuth] = useAtom(authAtom);
   const [name, setName] = useState('');
+  const [userId, setUserId] = useState(sessionStorage.getItem('userId'));
   const [password, setPassword] = useState('');
   const [isNameButtonClick, setIsNameButtonClick] = useState(true);
-  const [userId, setUserId] = useState('adad');
 
   const [failModalIsOpen, setFailModalIsOpen] = useState(false);
   const [successModalIsOpen, setSuccessModalIsOpen] = useState(false);
@@ -28,21 +28,6 @@ const ModifyProfile = () => {
 
   const nameInputHandler = (event) => setName(event.target.value) //입력된 value 값을 id state에 보관
   const passwordInputHandler = (event) => setPassword(event.target.value)
-
-  const checkBlank = () => {
-    let isNotBlank = true;
-    const userInfo = [
-    { key: 'password', value: password },
-    { key: 'name', value: name },
-    ];
-    for (let i = 0; i < userInfo.length; i++) {
-        if (userInfo[i].value === '') {
-            document.getElementById(userInfo[i].key).placeholder = `${userInfo[i].key}를 입력하세요.`;
-            isNotBlank = false;
-        }
-    }
-    return isNotBlank;
-}
 
   const nameChangeHanlder = (event) => {
     event.preventDefault();
