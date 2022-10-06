@@ -1,7 +1,5 @@
 import { atom } from "jotai";
 
-const dateAtom = atom({
-  data: null,
-}); 
+const dateAtom = atom(null);
 
 export default dateAtom;

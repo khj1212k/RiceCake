@@ -20,11 +20,11 @@ const DiaryMain = () => {
 
   const [diaryTitle, setDiaryTitle] = useState("");
   const [diaryContents, setDiaryContents] = useState("");
-  const [emotion, setEmotion] = useState("");
+  // const [emotion, setEmotion] = useState("");
   const [loginUser, setAuth] = useAtom(authAtom);
   const [date, setDate] = useAtom(dateAtom);
   const [diaries, setDiaries] = useState();
-
+  const [diary, setDiary] = useState();
 
   const diaryTitleHandler = (event) => {
     setDiaryTitle(event.target.value);
@@ -34,28 +34,73 @@ const DiaryMain = () => {
     setDiaryContents(event.target.value);
   };
 
-  const createEmotionHandler = (event) => { };
-
-  const createDiaryTitleHandler = (event) => { };
-
-  const createDiaryContentHandelr = (event) => { };
+  const submitHandler = () => {
+    const submitMethod = "POST"; // edit put 요청 ,아이디 필요함
+    const diaryId = null;
+    // 근데 diary가 null이면 안에 id가 없음
+    if (diary != null) {
+      submitMethod = "PUT"; // Add post요청 , 아이디 필요없음
+      diaryId = diary.diaryId; // 수정하는거는 diary에 뭐가 있으니까 오류는 안남
+    }
+    let emotion = "";
+    const emotionNodeList = document.getElementsByName("checkbox");
+    emotionNodeList.forEach((node) => {
+      if (node.checked) {
+        emotion = node.value;
+      }
+    });
+    const userId = loginUser.userId;
+    const user = { userId };
+    const diaryDate = date;
+    const submitValue = {
+      diaryId,
+      diaryTitle,
+      diaryContents,
+      diaryDate,
+      emotion,
+      user,
+    };
+    const options = {
+      method: submitMethod,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(submitValue), // 직렬화
+    };
+    fetch("http://localhost:8090/diaries", options)
+      .then((response) => response.json())
+      .then((diaries) => {
+        setDiaries(diaries);
+      }) // 모든 StoryList 데이터를 가져와서 배열에 담아줘야하는건가
+      .catch((error) => console.log("fail", error));
+    router.push("/Diary/DiaryMain");
+    setOpen(false);
+  };
 
   useEffect(() => {
     async function getDiary() {
       const userId = loginUser.userId;
-      const getUrl = "http://localhost:8090/diaries/2022-10-06/" + userId;
-      // console.log(getUrl);
+      const getUrl = "http://localhost:8090/diaries/" + date + "/" + userId;
       await fetch(getUrl)
-        .then((response) => response.json())
+        .then(function (response) {
+          if (response.ok) {
+            return response.json();
+          }
+          throw new Error("Something went wrong.");
+        })
         .then((diary) => {
-          setDiaries(diary);
-          console.log(diary);
-          // setDiaryContent(diaryContent);
-          router.push("/Diary/DiaryMain");
+          setDiary(diary);
+          setDiaryTitle(diary.diaryTitle);
+          setDiaryContents(diary.diaryContents);
+        })
+        .catch(() => {
+          setDiaryTitle("");
+          setDiaryContents("");
+          setDiary(null);
         });
     }
-    getDiary();
-  }, []);
+    date && getDiary();
+  }, [date]);
 
   return (
     <>
@@ -87,9 +132,8 @@ const DiaryMain = () => {
                 placeholder="Title"
                 onChange={diaryTitleHandler}
                 className="w-full row-span-6 pt-10 overflow-hidden text-4xl text-center text-gray-900 bg-transparent outline-none resize-none"
-              >
-                {diaries && diaries.diaryTitle}
-              </textarea>
+                value={diaryTitle}
+              ></textarea>
             </div>
             <div className="flex justify-center">
               <div className="w-full h-px bg-gray-400 mb-7"></div>
@@ -100,17 +144,11 @@ const DiaryMain = () => {
                 onChange={diaryContentsHandler}
                 rows="12"
                 className="scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-gray-300 h-auto scrollbar-thumb-rounded-full scrollbar-track-rounded-full overflow-y-scroll block p-2.5 w-full text-sm text-gray-900 rounded-lg bg-transparent resize-none"
-              >
-                {/* {diaries && diaries.diaryContents} */}
-                {console.log(diaries)}
-              </textarea>
-
+                value={diaryContents}
+              ></textarea>
             </div>
             <div className="flex justify-center">
-              <button
-                // onClick={deleteButtonHandler}
-                type="button"
-              >
+              <button type="button">
                 <XMarkIcon className="h-5 px-1 text-gray-800 hover:text-gray-400" />
               </button>
             </div>
@@ -118,12 +156,7 @@ const DiaryMain = () => {
         </div>
 
         <Transition.Root show={open} as={Fragment}>
-          <Dialog
-            as="div"
-            className="relative z-10"
-            // initialFocus={cancelButtonRef}
-            onClose={setOpen}
-          >
+          <Dialog as="div" className="relative z-10" onClose={setOpen}>
             // 뒤에 흐린 배경
             <Transition.Child
               as={Fragment}
@@ -160,11 +193,11 @@ const DiaryMain = () => {
                           <div className="flex mt-2">
                             <div class="flex items-center mr-4">
                               <input
-                                // checked
+                                checked
                                 id="red-checkbox"
                                 type="radio"
                                 name="checkbox"
-                                value=""
+                                value="UPSET"
                                 class="w-4 h-4 accent-red-600 bg-gray-100 rounded border-gray-300 "
                               />
                               <label
@@ -180,7 +213,7 @@ const DiaryMain = () => {
                                 id="green-checkbox"
                                 type="radio"
                                 name="checkbox"
-                                value=""
+                                value="TIRED"
                                 class="w-4 h-4 accent-green-600 bg-gray-100 rounded border-gray-300"
                               />
                               <label
@@ -196,7 +229,7 @@ const DiaryMain = () => {
                                 id="purple-checkbox"
                                 type="radio"
                                 name="checkbox"
-                                value=""
+                                value="WONDERFUL"
                                 class="w-4 h-4 accent-purple-600 bg-gray-100 rounded border-gray-300"
                               />
                               <label
@@ -212,7 +245,7 @@ const DiaryMain = () => {
                                 id="teal-checkbox"
                                 type="radio"
                                 name="checkbox"
-                                value=""
+                                value="WORRIED"
                                 class="w-4 h-4 accent-teal-600 bg-gray-100 rounded border-gray-300"
                               />
                               <label
@@ -228,7 +261,7 @@ const DiaryMain = () => {
                                 id="yellow-checkbox"
                                 type="radio"
                                 name="checkbox"
-                                value=""
+                                value="GREAT"
                                 class="w-4 h-4 accent-yellow-400 bg-gray-100 rounded border-gray-300 "
                               />
                               <label
@@ -244,7 +277,7 @@ const DiaryMain = () => {
                                 id="orange-checkbox"
                                 type="radio"
                                 name="checkbox"
-                                value=""
+                                value="SOSO"
                                 class="w-4 h-4 accent-orange-500 bg-gray-100 rounded border-gray-300 "
                               />
                               <label
@@ -262,7 +295,7 @@ const DiaryMain = () => {
                       <button
                         type="button"
                         className="inline-flex justify-center w-full px-4 py-2 text-base font-medium text-white bg-black border border-transparent rounded-md shadow-sm hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 sm:ml-3 sm:w-auto sm:text-sm"
-                        onClick={(createStoryListHandler) => setOpen(false)}
+                        onClick={submitHandler}
                       >
                         Submit
                       </button>
