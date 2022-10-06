@@ -25,6 +25,7 @@ const DiaryMain = () => {
   const [date, setDate] = useAtom(dateAtom);
   const [diaries, setDiaries] = useState();
   const [diary, setDiary] = useState();
+  const [canDelete, setCanDelete] = useState();
 
   const diaryTitleHandler = (event) => {
     setDiaryTitle(event.target.value);
@@ -34,12 +35,25 @@ const DiaryMain = () => {
     setDiaryContents(event.target.value);
   };
 
+  const deleteDiaryHandler = (event) => {
+    const deleteUrl = "http://localhost:8090/diaries?diaryId=" + diary.diaryId;
+    fetch(deleteUrl, { method: "DELETE" })
+      .then((response) => response.json())
+      .then((diaries) => {
+        setDiaries(diaries);
+        setDiaryTitle("");
+        setDiaryContents("");
+      }) // 모든 StoryList 데이터를 가져와서 배열에 담아줘야하는건가
+      .catch((error) => console.log("fail", error));
+    setCanDelete(false);
+  };
+
   const submitHandler = () => {
-    const submitMethod = "POST"; // edit put 요청 ,아이디 필요함
+    const submitMethod = "POST"; //  Add post요청 , 아이디 필요없음
     const diaryId = null;
     // 근데 diary가 null이면 안에 id가 없음
     if (diary != null) {
-      submitMethod = "PUT"; // Add post요청 , 아이디 필요없음
+      submitMethod = "PUT"; //  edit put 요청 ,아이디 필요함
       diaryId = diary.diaryId; // 수정하는거는 diary에 뭐가 있으니까 오류는 안남
     }
     let emotion = "";
@@ -69,12 +83,14 @@ const DiaryMain = () => {
     };
     fetch("http://localhost:8090/diaries", options)
       .then((response) => response.json())
-      .then((diaries) => {
-        setDiaries(diaries);
+      .then((diary) => {
+        setDiary(diary);
       }) // 모든 StoryList 데이터를 가져와서 배열에 담아줘야하는건가
       .catch((error) => console.log("fail", error));
     router.push("/Diary/DiaryMain");
     setOpen(false);
+    setCanDelete(true);
+    setDate();
   };
 
   useEffect(() => {
@@ -92,12 +108,14 @@ const DiaryMain = () => {
           setDiary(diary);
           setDiaryTitle(diary.diaryTitle);
           setDiaryContents(diary.diaryContents);
+          setCanDelete(true);
           setEmotion(diary.emotion);
         })
         .catch(() => {
-          setDiary(null);
           setDiaryTitle("");
           setDiaryContents("");
+          setDiary(null);
+          setCanDelete(false);
           setEmotion("");
         });
     }
@@ -147,22 +165,26 @@ const DiaryMain = () => {
                 rows="12"
                 className="scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-gray-300 h-auto scrollbar-thumb-rounded-full scrollbar-track-rounded-full overflow-y-scroll block p-2.5 w-full text-sm text-gray-900 rounded-lg bg-transparent resize-none"
                 value={diaryContents}
-              >
-              </textarea>
+              ></textarea>
             </div>
 
-            <div className="text-sm  p-2 ">
+            <div className="p-2 text-sm ">
               <span className="text-base font-bold text-gray-700 ">
                 today's mood :
               </span>
               {emotion}
             </div>
 
-
             <div className="flex justify-center">
-              <button type="button">
-                <XMarkIcon className="h-5 px-1 text-gray-800 hover:text-gray-400" />
-              </button>
+              {canDelete ? (
+                <button type="button">
+                  <XMarkIcon
+                    className="h-5 px-1 text-gray-800 hover:text-gray-400"
+                    onClick={deleteDiaryHandler}
+                  />
+                  {/* {다이어리 없으면 X표시 띄우면 안됨} */}
+                </button>
+              ) : null}
             </div>
           </div>
         </div>
@@ -210,7 +232,7 @@ const DiaryMain = () => {
                                 type="radio"
                                 name="checkbox"
                                 value="UPSET"
-                                class="w-4 h-4 accent-red-600 bg-gray-100 rounded border-gray-300 "
+                                class="w-4 h-4 bg-gray-100 border-gray-300 rounded accent-red-600 "
                               />
                               <label
                                 // for="red-checkbox"
@@ -226,7 +248,7 @@ const DiaryMain = () => {
                                 type="radio"
                                 name="checkbox"
                                 value="TIRED"
-                                class="w-4 h-4 accent-green-600 bg-gray-100 rounded border-gray-300"
+                                class="w-4 h-4 bg-gray-100 border-gray-300 rounded accent-green-600"
                               />
                               <label
                                 // for="green-checkbox"
@@ -242,7 +264,7 @@ const DiaryMain = () => {
                                 type="radio"
                                 name="checkbox"
                                 value="WONDERFUL"
-                                class="w-4 h-4 accent-purple-600 bg-gray-100 rounded border-gray-300"
+                                class="w-4 h-4 bg-gray-100 border-gray-300 rounded accent-purple-600"
                               />
                               <label
                                 // for="purple-checkbox"
@@ -258,7 +280,7 @@ const DiaryMain = () => {
                                 type="radio"
                                 name="checkbox"
                                 value="WORRIED"
-                                class="w-4 h-4 accent-teal-600 bg-gray-100 rounded border-gray-300"
+                                class="w-4 h-4 bg-gray-100 border-gray-300 rounded accent-teal-600"
                               />
                               <label
                                 // for="teal-checkbox"
@@ -274,7 +296,7 @@ const DiaryMain = () => {
                                 type="radio"
                                 name="checkbox"
                                 value="GREAT"
-                                class="w-4 h-4 accent-yellow-400 bg-gray-100 rounded border-gray-300 "
+                                class="w-4 h-4 bg-gray-100 border-gray-300 rounded accent-yellow-400 "
                               />
                               <label
                                 // for="yellow-checkbox"
@@ -290,7 +312,7 @@ const DiaryMain = () => {
                                 type="radio"
                                 name="checkbox"
                                 value="SOSO"
-                                class="w-4 h-4 accent-orange-500 bg-gray-100 rounded border-gray-300 "
+                                class="w-4 h-4 bg-gray-100 border-gray-300 rounded accent-orange-500 "
                               />
                               <label
                                 // for="orange-checkbox"

@@ -36,8 +36,10 @@ public class StoryController {
 
     //TODO 스토리 정보 수정 (최종 수정일 날짜 들어가고)
     @PutMapping
-    public void updateStroy(@RequestBody Story.Request request){
+    public Story.Response updateStroy(@RequestBody Story.Request request){
         storyService.update(request);
+        Story story = storyService.findStoryById(request.getStoryId());
+        return Story.Response.toResponse(story);
     }
 
     //TODO 스토리 정보 삭제

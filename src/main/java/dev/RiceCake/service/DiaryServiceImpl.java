@@ -28,7 +28,7 @@ public class DiaryServiceImpl implements DiaryService{
     }
 
     @Override
-    public List<Diary> updateDiary(Diary.Request request) {
+    public Diary updateDiary(Diary.Request request) {
         final Optional<Diary> diary = diaryRepository.findById(request.getDiaryId());
 
         if (diary.isPresent()){
@@ -41,7 +41,7 @@ public class DiaryServiceImpl implements DiaryService{
 
             diaryRepository.save(foundDiary);
         }
-        return diaryRepository.findAll();
+        return diaryRepository.findById(request.getDiaryId()).get();
     }
     @Override
     public List<Diary> deleteDiary(int diaryId) {

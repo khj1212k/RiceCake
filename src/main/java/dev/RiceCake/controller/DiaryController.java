@@ -50,9 +50,9 @@ public class DiaryController {
 
     //TODO 다이어리 수정
     @PutMapping
-    public List<Diary.Response> updateDiary (@RequestBody Diary.Request request){
-        List<Diary> diaries = diaryService.updateDiary(request);
-        return Diary.Response.toResponseList(diaries);
+    public Diary.Response updateDiary (@RequestBody Diary.Request request){
+        Diary diary = diaryService.updateDiary(request);
+        return Diary.Response.toResponse(diary);
     }
 
     //TODO 다이어리 삭제
