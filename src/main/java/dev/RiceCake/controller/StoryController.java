@@ -42,7 +42,11 @@ public class StoryController {
 
     //TODO 스토리 정보 삭제
     @DeleteMapping
-    public void deleteStory(@RequestParam int id){
+    public List<Story.Response> deleteStory(@RequestParam int id){
+        int storyListId = storyService.findStoryById(id).getStoryList().getStoryListId();
         storyService.deleteStory(id);
+        StoryList storyList  = storyListService.findById(storyListId);
+        List<Story> Stroies =storyList.getStroies();
+        return Story.Response.toResponseList(Stroies);
     }
 }

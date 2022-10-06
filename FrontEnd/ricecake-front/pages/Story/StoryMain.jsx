@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect, useRef, useState } from "react";
-import { PlusIcon } from "@heroicons/react/24/outline";
+import { PlusIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import { Dialog, Transition } from "@headlessui/react";
 import { useAtom } from "jotai";
@@ -46,6 +46,17 @@ const StoryMain = () => {
 
   const sendDataToStorySub = (story) => {
     setSendStoryList({ data: story });
+  };
+
+  const deleteHandler = (storyId) => {
+    console.log(storyId);
+    const deleteUrl = "http://localhost:8090/storyList?id=" + storyId;
+    console.log(deleteUrl);
+    fetch(deleteUrl, { method: "DELETE" })
+      .then((response) => response.json())
+      .then((storyList) => {
+        setStoryLists(storyList);
+      });
   };
 
   const createStoryListHandler = (event) => {
@@ -97,16 +108,41 @@ const StoryMain = () => {
           <div className="flex flex-col text-center">
             {storyLists &&
               storyLists.map((story) => (
-                <button
+                <div
+                  className="flex justify-center space-x-10"
                   key={story.storyListId}
-                  onClick={() => {
-                    router.push("/Story/StorySub");
-                    sendDataToStorySub(story);
-                  }}
                 >
-                  {story.storyListTitle}
-                </button>
+                  <button
+                    key={story.storyListId}
+                    onClick={() => {
+                      router.push("/Story/StorySub");
+                      sendDataToStorySub(story);
+                    }}
+                  >
+                    {story.storyListTitle}
+                  </button>
+                  <button
+                    key={story.storyListId}
+                    onClick={() => deleteHandler(story.storyListId)}
+                  >
+                    <XMarkIcon
+                      className="h-5 px-1 text-gray-300 hover:text-gray-400"
+                      // onClick={}
+                    />
+                  </button>
+                </div>
               ))}
+            <div>
+              {/* {storyLists &&
+                storyLists.map((story) => (
+                  <XMarkIcon
+                    key={story.storyListId}
+                    className="h-5 px-1 text-gray-300 hover:text-gray-400"
+                    // onClick={deleteHandler(story.storyId)}
+                    onClick={() => console.log(story.storyId)}
+                  />
+                ))} */}
+            </div>
           </div>
 
           <button
