@@ -51,11 +51,11 @@ const DiaryMain = () => {
           setDiaries(diary);
           console.log(diary);
           // setDiaryContent(diaryContent);
-          router.push("/Diary/DiaryMain");
+          // router.push("/Diary/DiaryMain");
         });
     }
-    getDiary();
-  }, []);
+    // getDiary();
+  }, [date]);
 
   return (
     <>

@@ -77,16 +77,16 @@ public class User {
         private String userId;
         private String name;
         private String email;
-        private List<StoryList> storyLists;
-        private List<Diary> diaries;
+        private List<StoryList.Response> storyLists;
+        private List<Diary.Response> diaries;
 
         public static User.Response toResponse(final User user) {
             return (user != null) ? Response.builder()
                     .userId(user.getUserId())
                     .name(user.getName())
                     .email(user.getEmail())
-                    .storyLists(user.getStoryLists())
-                    .diaries(user.getDiaries())
+                    .storyLists(StoryList.Response.toResponseList(user.getStoryLists()))
+                    .diaries(Diary.Response.toResponseList(user.getDiaries()))
                     .build() : Response.builder()
                     .userId("")
                     .build();
