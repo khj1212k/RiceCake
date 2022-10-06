@@ -25,21 +25,21 @@ const StoryMain = () => {
   const render = useEffect(() => {
     async function getStroyList() {
       const userId = loginUser.userId;
-      console.log(userId);
+      // console.log(userId);
       const getUrl = "http://localhost:8090/storyList/" + userId;
       await fetch(getUrl)
         .then((response) => response.json())
         .then((data) => {
           // console.log('parameter' + data);
           setStoryLists(data);
-          console.log(data);
+          // console.log(data);
         });
     }
     getStroyList();
     console.log(storyLists);
   }, []); // 처음 랜더링 시킬때만 실행
 
-  useEffect(() => { console.log(storyLists); }, [storyLists])
+  // useEffect(() => { console.log(storyLists); }, [storyLists])
 
   const storyListTitleHandler = (event) => {
     setStoryListTitle(event.target.value);
