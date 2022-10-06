@@ -23,15 +23,13 @@ const SignIn = () => {
     useEffect(() => {}, [userId, password]);
     useEffect(() => {console.log(auth);}, [auth])
 
-    const idInputHandler = (event) => setUserId(event.target.value); //입력된 value 값을 id state에 보관
+    const idInputHandler = (event) => setUserId(event.target.value);
     const passwordInputHandler = (event) => setPassword(event.target.value);
 
     const signInButtonHandler = (event) => {
-        // console.log(userId, password);
         event.preventDefault();
 
         const formValue = { userId, password };
-        // console.log(formValue);
 
         const options = {
             method: 'POST',
@@ -42,10 +40,8 @@ const SignIn = () => {
         };
 
         fetch('http://localhost:8090/users/auth/sign-in', options)
-            // .then(response => response.json())
             .then(response => response.json())
             .then(data => {
-                console.log(data);
                 if(data.userId != '') {
                     setAuth({userId: data.userId});
                     sessionStorage.setItem('userId', userId);

@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import Link from 'next/link'
 import { useRouter } from 'next/router';
 import { useAtom } from 'jotai';
 import authAtom from '../../stores/authAtom';
@@ -27,7 +26,6 @@ const SignUp = () => {
             },
             body: JSON.stringify(formValue),
         };
-        // console.log(options);
         fetch('http://localhost:8090/users/find', options)
             .then(response => response.json())
             .then(data => {
@@ -41,7 +39,7 @@ const SignUp = () => {
         if (validateEmail(email)) setIsValidate(true);
     }, [email])
 
-    useEffect(() => { ; }, [password, name])
+    useEffect(() => {}, [password, name])
 
     const validateEmail = (email) => {
         return email.match(
@@ -101,7 +99,6 @@ const SignUp = () => {
     };
 
     const idTextColor = isDuplicate ? 'font-bold text-red-700 line-through' : 'text-grey-900';
-    // const autoFillTextClor = isDuplicate ? 'autofill:text-red-700 autofill:line-through' : 'autofill:text-grey-900'; 
     const emailTextColor = isValidate ? 'text-grey-900' : 'font-bold text-red-700 line-through';
 
     return <>
