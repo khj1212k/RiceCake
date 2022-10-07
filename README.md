@@ -1,5 +1,4 @@
 # 🥇RiceCake🥇
-
 ## 🚄:프로젝트 소개
 : 매일 밥을 먹듯이 쓰는 나만의 달콤한 일기와 케이크처럼 특별한 나만의 글 조각들을 작성하고 하나의 단편선 케이크을 만들 수 있는 서비스
 
@@ -12,6 +11,9 @@
             
 😄신지수 - backend & frontend
             (story mode, diary mode 담당 : story FE, 수정, 삭제, 입력 등 diary BE, calendar)
+            
+            
+https://miro.com/app/board/uXjVPU0vNOY=/
             
 
 ## ☺️:도메인 용어 정의
@@ -85,7 +87,8 @@ https://documenter.getpostman.com/view/23511779/2s83zfQ5A8#intro
 :x:문제 : react-calendar css 수정 적용 불가 문제<br>
 :o:해결 : 프로젝트에 node-modules에 있는 react-calendar css가 아닌 사용자 정의 react-calendar css 파일을 만들어서 사용자 정의 css 파일만 import해서 문제 해결
 
-
-
-
 ## :rainbow:느낀점
+- :woman:신지수 : 번엔 그래도 git으로 고통받지 않아서 다행이었다.  오히려 git 덕분에 편하게 팀원들과 병합할수 있었던것같다. 그리고  무엇보다 intellij.. 정말 intelli한 친구였다 대소문자 구분 못 하는거만 빼면 ^^ 우리 팀원들 모두 고생 많으셨습니다 덕분에 이번 플젝 잘 마무리 된것같아요~~
+- :man:김형준 : 기획 -> 백개발 -> 프론트개발을 다 해보면서 모두 경험해볼 수 있어서 좋았고,  Git으로 팀원들과 코드를 서로 업데이트를 해가면서 할 수 있어서 , 협업하기 정말 편했다. 처음으로 완벽하지 않지만 그래도  하나의 작품(?)을 만들어낸 것 같아 굉장히 뿌듯하고, 좋은 팀원들과 함께할 수 있어서 좋았다.
+- :man:김성훈 : 프로젝트를 진행할 때 점검하고 세심하게 살펴야하는 부분이 굉장히 많다는 것을 알았고, 좋은 팀원을 만나서 프로젝트를 완성할 수 있어서 다행이라고 생각했습니다.
+
