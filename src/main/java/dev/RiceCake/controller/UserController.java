@@ -66,7 +66,6 @@ public class UserController {
 
         User.Response response = User.Response.toResponse(user);
         HttpStatus status = HttpStatus.OK;
-        System.out.println(response);
         return ResponseEntity.status(status).body(response);
     }
 
@@ -79,7 +78,6 @@ public class UserController {
         return ResponseEntity.status(status).body(response);
     }
 
-    //TODO 이메일 인증번호
 
     @PutMapping
     public ResponseEntity<User.Response> updateUser(@RequestBody User.Request request) {
@@ -91,8 +89,6 @@ public class UserController {
 
     @DeleteMapping
     public ResponseEntity<User.Response> deleteUser(@RequestBody User.Request request) {
-        // 유저를 지욱기 전에 유저리스트, 다이어리를 먼저 지워야함.
-        //일단 유저 리스트부터 지우자. userId에 맞는 storyList의 리스트를 가져와서 for돌려서 하나하나 삭제
         User foundUser = userService.findUserById(request.getUserId());
 
         if(foundUser != null) {

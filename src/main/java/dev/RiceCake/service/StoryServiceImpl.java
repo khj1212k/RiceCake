@@ -33,8 +33,6 @@ public class StoryServiceImpl implements StoryService {
     @Override
     public void update(Story.Request request) {
         final Optional<Story> foundStory = storyRepository.findById(request.getStoryId());
-        System.out.println(request);
-        System.out.println(foundStory);
 
         if (foundStory.isPresent()) {
             Story story = foundStory.get();

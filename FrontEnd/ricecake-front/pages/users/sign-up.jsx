@@ -39,7 +39,7 @@ const SignUp = () => {
         if (validateEmail(email)) setIsValidate(true);
     }, [email])
 
-    useEffect(() => {}, [password, name])
+    useEffect(() => { }, [password, name])
 
     const validateEmail = (email) => {
         return email.match(

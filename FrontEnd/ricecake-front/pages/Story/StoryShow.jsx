@@ -14,7 +14,6 @@ const StoryShow = () => {
   const router = useRouter();
 
   console.log(storyList);
-  //   console.log(story.data.storyTitle);
   console.log(story);
 
   const storyTitleHandler = (event) => {
@@ -26,7 +25,7 @@ const StoryShow = () => {
   };
 
   const editHandler = (event) => {
-    event.preventDefault(); // 기본 폼 동작 비활성화
+    event.preventDefault();
     const storyListId = "";
     const storyList = { storyListId };
     const storyDate = story.storyDate;
@@ -44,14 +43,14 @@ const StoryShow = () => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(submitValue), // 직렬화
+      body: JSON.stringify(submitValue),
     };
     fetch("http://localhost:8090/story", options)
       .then((response) => response.json())
       .then((story) => {
         setStory(story);
         console.log(story);
-      }) // 모든 StoryList 데이터를 가져와서 배열에 담아줘야하는건가
+      })
       .catch((error) => console.log("fail", error));
     router.push("/Story/StorySub");
   };
@@ -84,12 +83,11 @@ const StoryShow = () => {
             placeholder=" Sub Story1"
             className="text-center bg-transparent outline-none resize-none scrollbar-thin scrollbar-thumb-gray-700 scrollbar-track-gray-300 h-auto scrollbar-thumb-rounded-full scrollbar-track-rounded-full overflow-y-scroll block p-2.5 w-full text-sm text-gray-900 rounded-lg"
             onChange={storyTitleHandler}
-            // value={}
           >
             {story.storyTitle}
           </textarea>
         </div>
-        <div class="mt-3 mb-7 mx-auto h-px bg-gray-400 w-2/3"></div>
+        <div className="mt-3 mb-7 mx-auto h-px bg-gray-400 w-2/3"></div>
         <div className="flex justify-center ">
           <textarea
             placeholder="스토리 내용"

@@ -20,7 +20,6 @@ public class StoryController {
     @Autowired
     private StoryListService storyListService;
 
-    //TODO 유저정보와 스토리이름에 맞는 스토리 제목 및 내용 반환
     @GetMapping("/{id}")
     public List<Story.Response> getStory(@PathVariable int id){
         StoryList storyList  = storyListService.findById(id);
@@ -28,13 +27,11 @@ public class StoryController {
         return Story.Response.toResponseList(Stroies);
     }
 
-    //TODO 스토리 정보 추가 (날짜 들어가고)
     @PostMapping
     public void createStory(@RequestBody Story.Request request){
         storyService.saveStory(request);
     }
 
-    //TODO 스토리 정보 수정 (최종 수정일 날짜 들어가고)
     @PutMapping
     public Story.Response updateStroy(@RequestBody Story.Request request){
         storyService.update(request);
@@ -42,7 +39,6 @@ public class StoryController {
         return Story.Response.toResponse(story);
     }
 
-    //TODO 스토리 정보 삭제
     @DeleteMapping
     public List<Story.Response> deleteStory(@RequestParam int id){
         int storyListId = storyService.findStoryById(id).getStoryList().getStoryListId();

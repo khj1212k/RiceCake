@@ -202,7 +202,7 @@ const WithDraw = () => {
                                                 </Dialog.Title>
                                                 <div className="mt-2">
                                                     <div className="text-lg text-gray-500">
-                                                        그 동안 RiceCake를 이용해 주셔서 감사합니다. 
+                                                        그 동안 RiceCake를 이용해 주셔서 감사합니다.
                                                     </div>
                                                 </div>
                                             </div>

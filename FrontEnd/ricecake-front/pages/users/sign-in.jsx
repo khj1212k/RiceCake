@@ -20,8 +20,8 @@ const SignIn = () => {
 
     const cancelButtonRef = useRef(null);
 
-    useEffect(() => {}, [userId, password]);
-    useEffect(() => {console.log(auth);}, [auth])
+    useEffect(() => { }, [userId, password]);
+    useEffect(() => { console.log(auth); }, [auth])
 
     const idInputHandler = (event) => setUserId(event.target.value);
     const passwordInputHandler = (event) => setPassword(event.target.value);
@@ -42,8 +42,8 @@ const SignIn = () => {
         fetch('http://localhost:8090/users/auth/sign-in', options)
             .then(response => response.json())
             .then(data => {
-                if(data.userId != '') {
-                    setAuth({userId: data.userId});
+                if (data.userId != '') {
+                    setAuth({ userId: data.userId });
                     sessionStorage.setItem('userId', userId);
                     router.push('../Main/Main');
                 }

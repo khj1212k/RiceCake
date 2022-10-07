@@ -3,19 +3,30 @@ import React, { useEffect, useState } from "react";
 import Calendar from "react-calendar";
 import { useAtom } from "jotai";
 import dateAtom from "../stores/dateAtom";
-
+import authAtom from "../stores/authAtom";
 function Calendars() {
   const [value, onChange] = useState(new Date());
   const [date, setDate] = useAtom(dateAtom);
-  // const [diary, setDiary] = useState();
-  // const [marks, diaryDate] = useState(diary.date);
-
-  const marks = ["2022-10-15", "2022-10-17", "2022-11-01", "2022-12-25"];
-
+  const [diaries, setDiaries] = useState();
+  const [loginUser, setAuth] = useAtom(authAtom);
+  const [marks, setMarks] = useState([]);
   useEffect(() => {
     setDate(moment(value).format("YYYY-MM-DD"));
   }, [value]);
-
+  useEffect(() => {
+    const userId = loginUser.userId;
+    const getUrl = "http://localhost:8090/diaries/" + userId;
+    fetch(getUrl)
+      .then((response) => response.json())
+      .then((data) => {
+        setDiaries(data);
+        const dates = [];
+        data.forEach((diary) => {
+          dates.push(diary.diaryDate.substr(0, 10));
+          setMarks(dates);
+        });
+      });
+  }, [marks]);
   return (
     <div>
       <Calendar

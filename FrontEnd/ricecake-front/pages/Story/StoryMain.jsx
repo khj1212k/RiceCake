@@ -25,21 +25,17 @@ const StoryMain = () => {
   const render = useEffect(() => {
     async function getStroyList() {
       const userId = loginUser.userId;
-      // console.log(userId);
       const getUrl = "http://localhost:8090/storyList/" + userId;
       await fetch(getUrl)
         .then((response) => response.json())
         .then((data) => {
-          // console.log('parameter' + data);
           setStoryLists(data);
-          // console.log(data);
         });
     }
     getStroyList();
     console.log(storyLists);
-  }, []); // 처음 랜더링 시킬때만 실행
+  }, []);
 
-  // useEffect(() => { console.log(storyLists); }, [storyLists])
 
   const storyListTitleHandler = (event) => {
     setStoryListTitle(event.target.value);
@@ -65,7 +61,7 @@ const StoryMain = () => {
   };
 
   const createStoryListHandler = (event) => {
-    event.preventDefault(); // 기본 폼 동작 비활성화
+    event.preventDefault();
     const userId = loginUser.userId;
     const user = { userId };
     const submitValue = {
@@ -80,14 +76,14 @@ const StoryMain = () => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(submitValue), // 직렬화
+      body: JSON.stringify(submitValue),
     };
     fetch("http://localhost:8090/storyList/create", options)
       .then((response) => response.json())
       .then((storyList) => {
         setStoryLists(storyList);
         console.log(storyList);
-      }) // 모든 StoryList 데이터를 가져와서 배열에 담아줘야하는건가
+      })
       .catch((error) => console.log("fail", error));
     router.push("/Story/StoryMain");
     setOpen(false);
@@ -109,7 +105,7 @@ const StoryMain = () => {
           <div className="flex justify-center p-2 mt-2 text-3xl font-bold leading-8 text-gray-900 sm:text-5xl">
             All Stories
           </div>
-          <div class="mt-3 mb-7 mx-auto h-px bg-gray-400 w-2/3"></div>
+          <div className="mt-3 mb-7 mx-auto h-px bg-gray-400 w-2/3"></div>
           <div className="flex flex-col text-center">
             {storyLists &&
               storyLists.map((story, index) => {
@@ -131,23 +127,11 @@ const StoryMain = () => {
                     >
                       <XMarkIcon
                         className="h-5 px-1 text-gray-300 hover:text-gray-400"
-                        // onClick={}
                       />
                     </button>
                   </div>
                 );
               })}
-            <div>
-              {/* {storyLists &&
-                storyLists.map((story) => (
-                  <XMarkIcon
-                    key={story.storyListId}
-                    className="h-5 px-1 text-gray-300 hover:text-gray-400"
-                    // onClick={deleteHandler(story.storyId)}
-                    onClick={() => console.log(story.storyId)}
-                  />
-                ))} */}
-            </div>
           </div>
 
           <button
@@ -167,8 +151,8 @@ const StoryMain = () => {
           <Transition.Child
             as={Fragment}
             enter="ease-out duration-300"
-            enterFrom="opacity-0" // opacity = 불투명
-            enterTo="opacity-100" // opacity = 불투명
+            enterFrom="opacity-0"
+            enterTo="opacity-100"
             leave="ease-in duration-200"
             leaveFrom="opacity-100"
             leaveTo="opacity-0"
@@ -197,7 +181,7 @@ const StoryMain = () => {
                           Add Story Title
                         </Dialog.Title>
                         <div className="flex mt-2">
-                          <div class="flex items-center mr-4">
+                          <div className="flex items-center mr-4">
                             <textarea
                               placeholder="내용을 입력하세요."
                               onChange={storyListTitleHandler}
@@ -216,7 +200,7 @@ const StoryMain = () => {
                           Add Sub Title
                         </Dialog.Title>
                         <div className="flex mt-2">
-                          <div class="flex items-center mr-4">
+                          <div className="flex items-center mr-4">
                             <textarea
                               placeholder="내용을 입력하세요."
                               onChange={storyListSubTitleHandler}

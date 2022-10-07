@@ -49,4 +49,9 @@ public class DiaryServiceImpl implements DiaryService{
 
         return diaryRepository.findAll();
     }
+
+    @Override
+    public List<Diary> getDiaries(String userId) {
+        return diaryRepository.findByUserUserId(userId);
+    }
 }

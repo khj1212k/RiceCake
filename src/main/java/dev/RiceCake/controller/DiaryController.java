@@ -25,19 +25,23 @@ public class DiaryController {
 
 
 
-    //TODO 유저정보와 다이어리이름에 맞는 다이어리 제목 및 내용 및 감정 반환
     @GetMapping("/{diaryDate}/{userId}")
     public Diary.Response getDiary(@PathVariable String diaryDate , @PathVariable String userId) throws ParseException {
         diaryDate += " 09:00:00";
         SimpleDateFormat transFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date to = transFormat.parse(diaryDate);
         Diary foundDiary = diaryService.findDiaryByDate(to, userId);
-		return Diary.Response.toResponse(foundDiary);
+        return Diary.Response.toResponse(foundDiary);
+    }
+
+    @GetMapping("/{userId}")
+    public List<Diary.Response> getDiaries(@PathVariable String userId){
+        List<Diary> diaries =diaryService.getDiaries(userId);
+        return Diary.Response.toResponseList(diaries);
     }
 
 
 
-    //TODO 다이어리 추가
     @PostMapping
     public ResponseEntity<Diary.Response> createDiary(@RequestBody Diary.Request request){
         Diary diary = Diary.Request.toEntity(request);
@@ -48,14 +52,12 @@ public class DiaryController {
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
-    //TODO 다이어리 수정
     @PutMapping
     public Diary.Response updateDiary (@RequestBody Diary.Request request){
         Diary diary = diaryService.updateDiary(request);
         return Diary.Response.toResponse(diary);
     }
 
-    //TODO 다이어리 삭제
     @DeleteMapping
     public List<Diary.Response> deleteDiary(@RequestParam("diaryId") int diaryId) {
         List<Diary> diaries = diaryService.deleteDiary(diaryId);

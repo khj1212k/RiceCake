@@ -26,13 +26,13 @@ const ModifyProfile = () => {
   useEffect(() => { }, [successModalIsOpen]);
 
 
-  const nameInputHandler = (event) => setName(event.target.value) //입력된 value 값을 id state에 보관
+  const nameInputHandler = (event) => setName(event.target.value)
   const passwordInputHandler = (event) => setPassword(event.target.value)
 
   const nameChangeHanlder = (event) => {
     event.preventDefault();
     setIsNameButtonClick(true);
-    if(name == '') {
+    if (name == '') {
       document.getElementById('name').placeholder = 'name을 입력하세요.';
       return;
     }
@@ -65,7 +65,7 @@ const ModifyProfile = () => {
   const passwordChangeHandler = (event) => {
     setIsNameButtonClick(false);
     event.preventDefault();
-    if(password == '') {
+    if (password == '') {
       document.getElementById('password').placeholder = 'password를 입력하세요.';
       return;
     }
@@ -118,7 +118,7 @@ const ModifyProfile = () => {
           <div className="flex items-center justify-end py-1">
             <div className="text-md">
               <button onClick={nameChangeHanlder}
-              type="button"
+                type="button"
                 className="mr-10 font-bold border px-2 py-1
                               border-transparent bg-black text-white rounded-md
                               hover:text-black hover:bg-white">CHANGE</button>

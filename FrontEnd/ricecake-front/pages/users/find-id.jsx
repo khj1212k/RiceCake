@@ -102,7 +102,7 @@ const FindId = () => {
         fetch('http://localhost:8090/users/find/password', options)
             .then(response => response.json())
             .then(data => {
-                if(data.userId != '') {
+                if (data.userId != '') {
                     setPassword(data.password);
                     setSuccessModalIsOpen(true);
                     setFailModalIsOpen(false);
@@ -295,7 +295,7 @@ const FindId = () => {
                                 <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
                                     <button
                                         type="button"
-                                        onClick={isIdbuttonClick ? () => {setSuccessModalIsOpen(false)} : () => router.push('./sign-in')}
+                                        onClick={isIdbuttonClick ? () => { setSuccessModalIsOpen(false) } : () => router.push('./sign-in')}
                                         className="inline-flex w-full justify-center rounded-md border 
                                                 border-transparent bg-black px-4 py-2 text-base font-medium 
                                                 text-white shadow-sm hover:bg-white hover:text-black outline-none ring-2

@@ -45,18 +45,17 @@ const DiaryMain = () => {
         setDiaryTitle("");
         setDiaryContents("");
         setEmotion("");
-      }) // 모든 StoryList 데이터를 가져와서 배열에 담아줘야하는건가
+      })
       .catch((error) => console.log("fail", error));
     setCanDelete(false);
   };
 
   const submitHandler = () => {
-    const submitMethod = "POST"; //  Add post요청 , 아이디 필요없음
+    const submitMethod = "POST";
     const diaryId = null;
-    // 근데 diary가 null이면 안에 id가 없음
     if (diary != null) {
-      submitMethod = "PUT"; //  edit put 요청 ,아이디 필요함
-      diaryId = diary.diaryId; // 수정하는거는 diary에 뭐가 있으니까 오류는 안남
+      submitMethod = "PUT";
+      diaryId = diary.diaryId;
     }
     let emotion = "";
     const emotionNodeList = document.getElementsByName("checkbox");
@@ -81,14 +80,14 @@ const DiaryMain = () => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(submitValue), // 직렬화
+      body: JSON.stringify(submitValue),
     };
     fetch("http://localhost:8090/diaries", options)
       .then((response) => response.json())
       .then((diary) => {
         setDiary(diary);
         setEmotion(diary.emotion);
-      }) // 모든 StoryList 데이터를 가져와서 배열에 담아줘야하는건가
+      })
       .catch((error) => console.log("fail", error));
     router.push("/Diary/DiaryMain");
     setOpen(false);
@@ -183,7 +182,6 @@ const DiaryMain = () => {
                     className="h-5 px-1 text-gray-800 hover:text-gray-400"
                     onClick={deleteDiaryHandler}
                   />
-                  {/* {다이어리 없으면 X표시 띄우면 안됨} */}
                 </button>
               ) : null}
             </div>
@@ -192,12 +190,11 @@ const DiaryMain = () => {
 
         <Transition.Root show={open} as={Fragment}>
           <Dialog as="div" className="relative z-10" onClose={setOpen}>
-            // 뒤에 흐린 배경
             <Transition.Child
               as={Fragment}
               enter="ease-out duration-300"
-              enterFrom="opacity-0" // opacity = 불투명
-              enterTo="opacity-100" // opacity = 불투명
+              enterFrom="opacity-0"
+              enterTo="opacity-100"
               leave="ease-in duration-200"
               leaveFrom="opacity-100"
               leaveTo="opacity-0"
@@ -226,98 +223,87 @@ const DiaryMain = () => {
                             Today's Mood
                           </Dialog.Title>
                           <div className="flex mt-2">
-                            <div class="flex items-center mr-4">
+                            <div className="flex items-center mr-4">
                               <input
                                 checked
                                 id="red-checkbox"
                                 type="radio"
                                 name="checkbox"
                                 value="UPSET"
-                                class="w-4 h-4 bg-gray-100 border-gray-300 rounded accent-red-600 "
+                                className="w-4 h-4 bg-gray-100 border-gray-300 rounded accent-red-600 "
                               />
                               <label
-                                // for="red-checkbox"
-                                class="ml-2 text-sm font-medium text-gray-900"
+                                className="ml-2 text-sm font-medium text-gray-900"
                               >
                                 Upset
                               </label>
                             </div>
-                            <div class="flex items-center mr-4">
+                            <div className="flex items-center mr-4">
                               <input
-                                // checked=""
                                 id="green-checkbox"
                                 type="radio"
                                 name="checkbox"
                                 value="TIRED"
-                                class="w-4 h-4 bg-gray-100 border-gray-300 rounded accent-green-600"
+                                className="w-4 h-4 bg-gray-100 border-gray-300 rounded accent-green-600"
                               />
                               <label
-                                // for="green-checkbox"
-                                class="ml-2 text-sm font-medium text-gray-900 "
+                                className="ml-2 text-sm font-medium text-gray-900 "
                               >
                                 Tired
                               </label>
                             </div>
-                            <div class="flex items-center mr-4">
+                            <div className="flex items-center mr-4">
                               <input
-                                // checked=""
                                 id="purple-checkbox"
                                 type="radio"
                                 name="checkbox"
                                 value="WONDERFUL"
-                                class="w-4 h-4 bg-gray-100 border-gray-300 rounded accent-purple-600"
+                                className="w-4 h-4 bg-gray-100 border-gray-300 rounded accent-purple-600"
                               />
                               <label
-                                // for="purple-checkbox"
-                                class="ml-2 text-sm font-medium text-gray-900 "
+                                className="ml-2 text-sm font-medium text-gray-900 "
                               >
                                 Wonderful
                               </label>
                             </div>
-                            <div class="flex items-center mr-4">
+                            <div className="flex items-center mr-4">
                               <input
-                                // checked=""
                                 id="teal-checkbox"
                                 type="radio"
                                 name="checkbox"
                                 value="WORRIED"
-                                class="w-4 h-4 bg-gray-100 border-gray-300 rounded accent-teal-600"
+                                className="w-4 h-4 bg-gray-100 border-gray-300 rounded accent-teal-600"
                               />
                               <label
-                                // for="teal-checkbox"
-                                class="ml-2 text-sm font-medium text-gray-900 "
+                                className="ml-2 text-sm font-medium text-gray-900 "
                               >
                                 Wrorried
                               </label>
                             </div>
-                            <div class="flex items-center mr-4">
+                            <div className="flex items-center mr-4">
                               <input
-                                // checked=""
                                 id="yellow-checkbox"
                                 type="radio"
                                 name="checkbox"
                                 value="GREAT"
-                                class="w-4 h-4 bg-gray-100 border-gray-300 rounded accent-yellow-400 "
+                                className="w-4 h-4 bg-gray-100 border-gray-300 rounded accent-yellow-400 "
                               />
                               <label
-                                // for="yellow-checkbox"
-                                class="ml-2 text-sm font-medium text-gray-900 "
+                                className="ml-2 text-sm font-medium text-gray-900 "
                               >
                                 Great
                               </label>
                             </div>
-                            <div class="flex items-center mr-4">
+                            <div className="flex items-center mr-4">
                               <input
-                                // checked=""
                                 id="orange-checkbox"
                                 type="radio"
                                 name="checkbox"
                                 value="SOSO"
-                                class="w-4 h-4 bg-gray-100 border-gray-300 rounded accent-orange-500 "
+                                className="w-4 h-4 bg-gray-100 border-gray-300 rounded accent-orange-500 "
                               />
                               <label
-                                // for="orange-checkbox"
-                                class="ml-2 text-sm font-medium text-gray-900 "
+                                className="ml-2 text-sm font-medium text-gray-900 "
                               >
                                 Soso
                               </label>

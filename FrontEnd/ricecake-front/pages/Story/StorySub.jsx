@@ -13,7 +13,6 @@ const StorySub = () => {
   const [stories, setStroies] = useState([]);
 
   useEffect(() => {
-    // console.log("시작");
     console.log(sendTitle);
     async function getStroies() {
       const storyListId = sendTitle.data.storyListId;
@@ -28,10 +27,7 @@ const StorySub = () => {
     }
     getStroies();
 
-    // const listItems = storyLists.map((storyLists) =>
-    //   console.log(storyLists.storyListTitle)
-    // );
-  }, []); // 처음 랜더링 시킬때만 실행
+  }, []);
 
   const deleteHandler = (storyId) => {
     const deleteUrl = "http://localhost:8090/story?id=" + storyId;
@@ -59,7 +55,7 @@ const StorySub = () => {
         <div className="flex justify-center p-2 mt-2 text-3xl leading-8 text-gray-600 sm:text-sm">
           {sendTitle.data.storyListSubTitle}
         </div>
-        <div class="mt-3 mb-7 mx-auto h-px bg-gray-400 w-2/3"></div>
+        <div className="mt-3 mb-7 mx-auto h-px bg-gray-400 w-2/3"></div>
         <div className="flex flex-col text-center">
           {stories &&
             stories.map((story) => (
@@ -83,7 +79,6 @@ const StorySub = () => {
                 >
                   <XMarkIcon
                     className="h-5 px-1 text-gray-300 hover:text-gray-400"
-                    // onClick={}
                   />
                 </button>
               </div>

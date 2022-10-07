@@ -32,8 +32,6 @@ public class UserServiceImpl implements UserService {
         User user = findUserById(request.getUserId());
         if(user == null) return null;
 
-        System.out.println("id 유효");
-
         return (user.getPassword().equals(request.getPassword())) ? user : null;
     }
 
@@ -53,8 +51,6 @@ public class UserServiceImpl implements UserService {
         if(user == null) return null;
 
         if(request.getName() != null) user.setName(request.getName());
-        System.out.println(user.getName());
-        System.out.println(request.getName());
         if(request.getPassword() != null) user.setPassword(request.getPassword());
 
         return userRepository.save(user);

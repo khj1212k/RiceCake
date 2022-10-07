@@ -12,4 +12,9 @@ public interface DiaryService {
     Diary saveDiary(Diary newDiary);
     Diary updateDiary(Diary.Request request);
     List<Diary> deleteDiary(int diaryId);
+    List<Diary> getDiaries(String userId);
+
+
+
+
 }

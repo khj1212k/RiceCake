@@ -5,6 +5,8 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useAtom } from 'jotai'
 import authAtom from '../../stores/authAtom'
+import Image from 'next/image'
+import logo from "/public/Logo.png"
 
 function classNames(...classes) {
 
@@ -17,7 +19,7 @@ export default function Header() {
   const [auth, setAuth] = useAtom(authAtom);
 
   const logoutHandler = () => {
-    if(userId != null) sessionStorage.removeItem('userId');
+    if (userId != null) sessionStorage.removeItem('userId');
 
     setAuth({ userId: null, password: null, name: null, email: null });
 
@@ -31,10 +33,10 @@ export default function Header() {
         <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
           <div className="flex flex-shrink-0 items-center">
             <Link href={userId != null ? '/Main/Main' : '/Main/Starts'}>
-              RiceCake
+              <Image src={logo} height="27" alt='logo' width="100"
+                className='hover:cursor-pointer'
+              />
             </Link>
-            <StarIcon className="block h-5 w-auto px-1 hover:cursor-pointer" 
-              onClick={() => {userId != null ? router.push('/Main/Main') : router.push('/Main/Starts')}} />
           </div>
           <div className="hidden sm:ml-6 sm:block">
             <div className="flex space-x-4">
@@ -96,7 +98,7 @@ export default function Header() {
                   {({ active }) => (
                     <div className={classNames(active ? 'bg-gray-100' : '', ' block px-4 py-2 text-sm text-gray-700')}>
                       <Link href={userId != null ? '/users/withdraw' : '/users/sign-in'}>
-                        Withraw</Link>
+                        Withdraw</Link>
                     </div>
                   )}
                 </Menu.Item>
@@ -105,7 +107,7 @@ export default function Header() {
           </Menu>
         </div>
       </div>
-      <div class="mb-7 h-px bg-gray-400 w-1/7 mx-auto"></div>
+      <div className="mb-7 h-px bg-gray-400 w-1/7 mx-auto"></div>
     </div>
   )
 }

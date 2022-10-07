@@ -32,7 +32,7 @@ const StorySubText = () => {
 
   const createStoryHandler = (event) => {
     console.log(dateFormat(today));
-    event.preventDefault(); // 기본 폼 동작 비활성화
+    event.preventDefault();
     const storyListId = atomStoryList.data.storyListId;
     const storyList = { storyListId };
     const storyDate = dateFormat(today);
@@ -48,21 +48,20 @@ const StorySubText = () => {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(submitValue), // 직렬화
+      body: JSON.stringify(submitValue),
     };
     fetch("http://localhost:8090/story", options)
       .then((response) => response.json())
       .then((storyList) => {
         setStoryLists(storyList);
         console.log(storyList);
-      }) // 모든 StoryList 데이터를 가져와서 배열에 담아줘야하는건가
+      })
       .catch((error) => console.log("fail", error));
     router.push("/Story/StorySub");
   };
 
   return (
     <div className="items-center justify-center min-h-full px-4 py-12 mx-auto h-3/4 sm:px-6 lg:px-8 max-w-7xl">
-      {/* <div class="flex space-x-2 justify-start px-6 ">DiaryMain</div> */}
       <div className="flex justify-end px-6 space-x-2 ">
         <Link href="/Story/StorySub">
           <a className="inline-block px-6 py-2.5 bg-black text-white font-medium text-xs leading-tight uppercase rounded shadow-md hover:bg-gray-800 hover:shadow-lg focus:bg-gray-600 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-gray-800 active:shadow-lg transition duration-150 ease-in-out">

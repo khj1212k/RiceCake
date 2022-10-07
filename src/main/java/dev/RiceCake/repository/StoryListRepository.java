@@ -9,7 +9,6 @@ import java.util.List;
 @Repository
 public interface StoryListRepository extends JpaRepository<StoryList,Integer> {
     StoryList findByOrderNumber(int orderNumber);
-//    StoryList findByUserId(String userId);
     List<StoryList> findByUserUserId(String userId);
 
 }

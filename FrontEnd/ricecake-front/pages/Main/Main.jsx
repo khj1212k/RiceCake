@@ -1,7 +1,5 @@
 import Link from "next/link";
 
-
-
 export default function Example() {
   return (
     <>
@@ -15,7 +13,7 @@ export default function Example() {
                 </div>
               </a>
             </Link>
-            <div class="mb-7 h-px bg-gray-400 w-11/12 mx-auto"></div>
+            <div className="mb-7 h-px bg-gray-400 w-11/12 mx-auto"></div>
             <Link href="/Diary/DiaryMain">
               <a>
                 <div className="p-2 text-3xl font-bold leading-8 text-gray-900 hover:text-neutral-600 sm:text-5xl">

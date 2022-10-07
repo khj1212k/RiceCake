@@ -7,7 +7,6 @@ import Footer from "../components/Layout/Footer";
 function MyApp({ Component, pageProps }) {
   return (
     <>
-      {/* <LightDark /> */}
       <Header />
       <Component {...pageProps} />
       <Footer />
