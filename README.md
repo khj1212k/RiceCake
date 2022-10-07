@@ -45,7 +45,7 @@ https://miro.com/app/board/uXjVPU0vNOY=/
 -tailwind : 3.1.8<br>
 -react-calendar : 3.9.0<br>
 
-## 요구사항
+## 📕:요구사항
 <p>
 <img src="https://img.shields.io/badge/GIT-E44C30?style=for-the-badge&logo=git&logoColor=white"/>
 <img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white"/>
@@ -67,7 +67,7 @@ https://miro.com/app/board/uXjVPU0vNOY=/
 <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/npm/npm-original-wordmark.svg" width="50" height="50" />
 </p>
 
-## 🪗:진행 간 규칙
+## 🏹:진행 간 규칙
 1) 밥먹으면서 일 얘기 금지
 2) 어? 금지
   
